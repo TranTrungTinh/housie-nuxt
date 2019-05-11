@@ -33,6 +33,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~plugins/core-component.js' },
+    { src: '~/plugins/vue-typer.js', ssr: false}
   ],
 
   /*

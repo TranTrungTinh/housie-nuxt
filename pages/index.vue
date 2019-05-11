@@ -1,68 +1,69 @@
-<template>
-  <section class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        app
-      </h1>
-      <h2 class="subtitle">
-        My superior Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
-    </div>
-  </section>
-</template>
-
+<template src="./index.html"></template>
+<style src="./index.scss" lang="scss" scoped></style>
 <script>
-import Logo from '~/components/Logo.vue'
+// import { Selected } from '@/components/selected';
+// import { CardHire } from '@/components/card-hire';
+// import { Thumbnail } from '@/components/thumbnail';
+import { Typed } from '@/components/utils';
+ 
+// import { getCitiesByCode, getDistrictsByCode } from '@/helpers/readLocation.js';
+// import { mapActions } from 'vuex';
+// import { initLoadProgress } from '@/mixins';
 
 export default {
-  components: {
-    Logo
-  }
+  components: { Typed },
+  // mixins: [initLoadProgress],
+  data () {
+    return {
+      address: {
+        city: {
+            code: '79',
+            data: ''
+        },
+        district: {
+            code: '',
+            data: ''
+        }
+      },
+      newPosts: [],
+      apartments: []
+    }
+  },
+  // methods: {
+  //   ...mapActions({
+  //     getPostsByFiltered: 'post/getPostsByFiltered'
+  //   }),
+  //   onSelectedCity({ code, data }) {
+  //     Object.assign(this.address.city, { code, data })
+  //   },
+  //   onSelectedDistrict({ code, data }) {
+  //     Object.assign(this.address.district, { code, data })
+  //   },
+  //   handleSearch() {
+  //     this.$router.push({ path: '/posts', query: { districts: this.address.district.code } })
+  //   }
+  // },
+  // computed: {
+  //   getCities() {
+  //     return getCitiesByCode(this.address.city.code)
+  //   },
+  //   getDistricts() {
+  //       if(!this.address.city.code) return [];
+  //       return getDistrictsByCode(this.address.city.code)
+  //   }
+  // },
+  // mounted() {
+  //   const loader = this.$loading.show();
+  //   Promise.all([
+  //     this.getPostsByFiltered({ limit: 8 }), 
+  //     this.getPostsByFiltered({ limit: 8, type: 2})])
+  //   .then(data => {
+  //     this.newPosts = data[0];
+  //     this.apartments = data[1];
+  //     loader.hide();
+  //   });
+  // },
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

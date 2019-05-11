@@ -1,0 +1,29 @@
+.ant-layout {
+
+  &-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: #fff;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+      margin: 0;
+      // padding: 0 10px;
+      height: auto;
+  }
+
+  &-content {
+      margin-top: 64px;
+      min-height: 90vh;
+      background: #fff;
+  }
+
+  &-footer {
+      background: #fff;
+      padding: 0;
+  }
+}
+
+.layout {
+  transition: transform 0.25s ease-in-out 0.045s;
+}

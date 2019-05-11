@@ -1,55 +1,44 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+    <a-layout :style="[styles]" class="layout">
+      <a-layout-header>
+        <!-- <Header /> -->
+      </a-layout-header>
+      <a-layout-content>
+          <nuxt />
+          <!-- Setup vue progress bar -->
+          <!-- <vue-progress-bar></vue-progress-bar> -->
+      </a-layout-content>
+      <a-layout-footer>
+          <!-- <TheFooter /> -->
+      </a-layout-footer>
+    </a-layout>
 </template>
+<script>
+// import { Header } from '@/components/header';
+// import { EventBus } from '@/helpers/event-bus';
+// import { TheFooter } from '@/components/footer';
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+export default {
+    // components: { Header, TheFooter },
+    data () {
+        return {
+            styles: {
+                // transform: 'translate(250px)'
+            }
+        }
+    },
+    mounted () {
+      // EventBus.$on('toggleDrawer', (isShow) => {
+      //     if(isShow) {
+      //         this.styles = { transform: 'translate(250px)' }
+      //     } else {
+      //         this.styles = { transform: 'translate(0px)' }
+      //     }
+      // })
+    },
+    destroyed() {
+      // EventBus.$off('toggleDrawer');
+    }
 }
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-</style>
+</script>
+<style src="./default.scss" lang="scss" scoped></style>
