@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
+body {
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 16px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.container-fluid {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #3E74FF !important;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #3E74FF !important;
+}
+
+::selection {
+  background-color: #FD3D76 !important;
+  color: #fff !important;
+}
+::-moz-selection {
+  background-color: #FD3D76 !important;
+  color: #fff !important;
+}
