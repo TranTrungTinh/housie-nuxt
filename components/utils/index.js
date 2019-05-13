@@ -1,2 +1,3 @@
 import Typed from './Typed.vue';
-export { Typed }
+import Utilities from './Utilities.vue';
+export { Typed, Utilities }

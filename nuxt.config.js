@@ -14,14 +14,15 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: '/css/all.min.css' }
     ]
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#FD3D76', height: '2px', duration: 500 },
 
   /*
   ** Global CSS
@@ -34,8 +35,13 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~plugins/core-component.js' },
-    { src: '~/plugins/vue-typer.js', ssr: false}
+    { src: '~plugins/components/core-component.js' },
+    { src: '~plugins/components/vue-loading.js' },
+    { src: '~plugins/components/vue-lazyload.js' },
+    { src: '~plugins/components/vue-typer.js', ssr: false},
+
+    { src: '~plugins/filters/currency.js'},
+    { src: '~plugins/filters/fromNow.js'},
   ],
 
   /*

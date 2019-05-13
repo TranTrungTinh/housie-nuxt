@@ -1,0 +1,116 @@
+<header>
+  <div class="header-desktop">
+      <a-row :gutter="16">
+          <a-col :xs="showColMatchStep">
+              <div class="header-desktop--left">
+                  <div class="header-desktop--left__logo">
+                      <nuxt-link to="/">
+                          <img src="~@/assets/img/main-logo.svg" alt="Site brand logo" />
+                      </nuxt-link>
+                  </div>
+                  <div class="header-desktop--left__position" v-if="!currentHeader">
+                      <div class="header-desktop--left__position_city">
+                          TPHCM
+                      </div>
+                      <div class="header-desktop--left__position_search">
+                          <the-search></the-search>
+                      </div>
+                  </div>
+              </div>
+          </a-col>
+          <a-col :xs="2 * showColMatchStep + 4" v-if="currentHeader">
+              <div class="steps">
+                  <div class="steps--item">
+                      <div :class="['steps--item__icon', { 'current-step': step >= 1}, { 'done-step': step > 1}]" >
+                          <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="steps--item__title">Vị trí</div>
+                  </div>
+                  <div :class="['steps--bridge', { 'done-bridge': step >= 2}]"></div>
+                  <div class="steps--item">
+                      <div :class="['steps--item__icon', { 'current-step': step >= 2}, { 'done-step': step > 2}]">
+                          <i class="fas fa-home-alt"></i>
+                      </div>
+                      <div class="steps--item__title">Thông tin</div>
+                  </div>
+                  <div :class="['steps--bridge', { 'done-bridge': step >= 3}]"></div>
+                  <div class="steps--item">
+                      <div :class="['steps--item__icon', { 'current-step': step >= 3}, { 'done-step': step > 3}]">
+                          <i class="far fa-dollar-sign"></i>
+                      </div>
+                      <div class="steps--item__title">Chi phí</div>
+                  </div>
+                  <div :class="['steps--bridge', { 'done-bridge': step >= 4}]"></div>
+                  <div class="steps--item">
+                      <div :class="['steps--item__icon', { 'current-step': step >= 4}, { 'done-step': step > 4}]">
+                          <i class="far fa-check"></i>
+                      </div>
+                      <div class="steps--item__title">Xác nhận</div>
+                  </div>
+              </div>
+          </a-col>
+          <a-col :xs="showColMatchStep">
+              <div class="header-desktop--right">
+                  <div class="header-nav-link">
+                      <span class="header-nav-link--user_loading" v-if="loading && !isUser">
+                          <i class="fas fa-spinner fa-pulse"></i>
+                      </span>
+                      <div v-if="isUser">
+                          <div class="header-nav-link--user">
+                              <div class="header-nav-link--user__avatar">
+                                  <profile-popup :avatar="currentUser.avatar"></profile-popup>
+                              </div>
+                              <div class="header-nav-link--user__noti">
+                                  <notification></notification>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="header-nav-link--item" v-else-if="!loading && !isUser">
+                          <user-modal ref="modalAuth"></user-modal>
+                      </div>
+                  </div>
+              </div>
+          </a-col>
+      </a-row>
+  </div>
+  <div class="header-mobile">
+      <div class="header-mobile-responsive">
+          <span class="header-mobile--left">
+              <span @click="showDrawer"><i class="fal fa-bars"></i></span>
+              <div class="header-top-logo">
+                  <nuxt-link to="/">
+                      <img src="~@/assets/img/main-logo.svg" alt="Brand Logo" />
+                  </nuxt-link>
+              </div>
+          </span>
+          <span class="header-mobile--right">
+              <div class="header-nav-link">
+                  <span class="header-nav-link--user_loading" v-if="loading && !isUser">
+                      <i class="fas fa-spinner fa-pulse"></i>
+                  </span>
+                  <div v-if="isUser">
+                      <div class="header-nav-link--user">
+                          <div class="header-nav-link--user__avatar">
+                              <profile-popup :avatar="currentUser.avatar"></profile-popup>
+                          </div>
+                          <div class="header-nav-link--user__noti">
+                              <a-badge count="14"  class="header-nav-link--user__noti-bag">
+                                  <i class="fas fa-bell"></i>
+                              </a-badge>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="header-nav-link--item" v-else-if="!loading && !isUser">
+                      <user-modal ref="modalAuth"></user-modal>
+                  </div>
+              </div>
+          </span>
+      </div>
+      <div class="header-mobile-filter">
+          
+      </div>
+      <div>
+          <drawer ref="drawer" :navLinks="navLinks"></drawer>
+      </div>
+  </div>
+</header>

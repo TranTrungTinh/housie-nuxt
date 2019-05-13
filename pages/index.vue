@@ -1,17 +1,17 @@
 <template src="./index.html"></template>
 <style src="./index.scss" lang="scss" scoped></style>
 <script>
-// import { Selected } from '@/components/selected';
-// import { CardHire } from '@/components/card-hire';
-// import { Thumbnail } from '@/components/thumbnail';
+import { Selected } from '@/components/selected';
+import { CardHire } from '@/components/card-hire';
+import { Thumbnail } from '@/components/thumbnail';
 import { Typed } from '@/components/utils';
  
-// import { getCitiesByCode, getDistrictsByCode } from '@/helpers/readLocation.js';
+import { getCitiesByCode, getDistrictsByCode } from '@/helpers/readLocation.js';
 // import { mapActions } from 'vuex';
 // import { initLoadProgress } from '@/mixins';
 
 export default {
-  components: { Typed },
+  components: { CardHire, Typed, Selected, Thumbnail },
   // mixins: [initLoadProgress],
   data () {
     return {
@@ -29,40 +29,40 @@ export default {
       apartments: []
     }
   },
-  // methods: {
+  methods: {
   //   ...mapActions({
   //     getPostsByFiltered: 'post/getPostsByFiltered'
   //   }),
-  //   onSelectedCity({ code, data }) {
-  //     Object.assign(this.address.city, { code, data })
-  //   },
-  //   onSelectedDistrict({ code, data }) {
-  //     Object.assign(this.address.district, { code, data })
-  //   },
-  //   handleSearch() {
-  //     this.$router.push({ path: '/posts', query: { districts: this.address.district.code } })
-  //   }
-  // },
-  // computed: {
-  //   getCities() {
-  //     return getCitiesByCode(this.address.city.code)
-  //   },
-  //   getDistricts() {
-  //       if(!this.address.city.code) return [];
-  //       return getDistrictsByCode(this.address.city.code)
-  //   }
-  // },
-  // mounted() {
-  //   const loader = this.$loading.show();
-  //   Promise.all([
-  //     this.getPostsByFiltered({ limit: 8 }), 
-  //     this.getPostsByFiltered({ limit: 8, type: 2})])
-  //   .then(data => {
-  //     this.newPosts = data[0];
-  //     this.apartments = data[1];
-  //     loader.hide();
-  //   });
-  // },
+    onSelectedCity({ code, data }) {
+      Object.assign(this.address.city, { code, data })
+    },
+    onSelectedDistrict({ code, data }) {
+      Object.assign(this.address.district, { code, data })
+    },
+    handleSearch() {
+      this.$router.push({ path: '/posts', query: { districts: this.address.district.code } })
+    }
+  },
+  computed: {
+    getCities() {
+      return getCitiesByCode(this.address.city.code)
+    },
+    getDistricts() {
+        if(!this.address.city.code) return [];
+        return getDistrictsByCode(this.address.city.code)
+    }
+  },
+  mounted() {
+    const loader = this.$loading.show();
+    Promise.all([
+      this.$store.dispatch('post/getPostsByFiltered', { limit: 8 }), 
+      this.$store.dispatch('post/getPostsByFiltered', { limit: 8, type: 2})
+    ]).then(data => {
+        this.newPosts = data[0];
+        this.apartments = data[1];
+        loader.hide();
+    });
+  }
 }
 </script>
 

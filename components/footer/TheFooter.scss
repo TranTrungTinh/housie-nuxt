@@ -1,0 +1,37 @@
+.footer {
+    border-top: solid 2px #EFEFF4;
+
+    &-main {
+        text-align: center;
+        padding: 30px 0;
+
+        &--logo {
+            margin-bottom: 10px;
+            & > span {
+                font-size: 36px;
+                font-weight: 600;
+                color: #FD3D76;
+                vertical-align: bottom;
+            }
+        }
+    }
+
+    &-sub {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 40px;
+        background: #F9F9F9;
+        
+        &--info {
+            & > a {
+                color: #666;
+                padding: 0 15px;
+            }
+        }
+
+        &--copy {
+            color: #666;
+        }
+    }
+}

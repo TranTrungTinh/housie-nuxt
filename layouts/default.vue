@@ -1,7 +1,7 @@
 <template>
     <a-layout :style="[styles]" class="layout">
       <a-layout-header>
-        <!-- <Header /> -->
+        <the-header></the-header>
       </a-layout-header>
       <a-layout-content>
           <nuxt />
@@ -9,17 +9,17 @@
           <!-- <vue-progress-bar></vue-progress-bar> -->
       </a-layout-content>
       <a-layout-footer>
-          <!-- <TheFooter /> -->
+          <the-footer></the-footer>
       </a-layout-footer>
     </a-layout>
 </template>
 <script>
-// import { Header } from '@/components/header';
-// import { EventBus } from '@/helpers/event-bus';
-// import { TheFooter } from '@/components/footer';
+import { TheHeader } from '@/components/header';
+import { EventBus } from '@/helpers/event-bus';
+import { TheFooter } from '@/components/footer';
 
 export default {
-    // components: { Header, TheFooter },
+    components: { TheHeader, TheFooter },
     data () {
         return {
             styles: {
@@ -28,16 +28,16 @@ export default {
         }
     },
     mounted () {
-      // EventBus.$on('toggleDrawer', (isShow) => {
-      //     if(isShow) {
-      //         this.styles = { transform: 'translate(250px)' }
-      //     } else {
-      //         this.styles = { transform: 'translate(0px)' }
-      //     }
-      // })
+      EventBus.$on('toggleDrawer', (isShow) => {
+          if(isShow) {
+              this.styles = { transform: 'translate(250px)' }
+          } else {
+              this.styles = { transform: 'translate(0px)' }
+          }
+      })
     },
     destroyed() {
-      // EventBus.$off('toggleDrawer');
+      EventBus.$off('toggleDrawer');
     }
 }
 </script>
