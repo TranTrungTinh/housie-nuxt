@@ -1,5 +1,4 @@
 import { postApi } from '@/api';
-import { cookie } from '@/helpers';
 
 const initialState = () => {
   return {
@@ -115,7 +114,7 @@ const actions = {
   },
 
   async getPostById(_, id) {
-    const token = cookie.get('auth') || '';
+    const token = localStorage.getItem('auth') || '';
     try {
       const res = await postApi.getPostById(token, id);
       return res.data;
@@ -124,7 +123,7 @@ const actions = {
     }
   },
   async uploadFile(_, payload) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
     try {
       const res = await postApi.upload(token, payload);
@@ -135,7 +134,7 @@ const actions = {
   },
 
   async createPost({ commit }, payload) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
@@ -159,7 +158,7 @@ const actions = {
   },
 
   async deletePostById(_, id) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
     
     try {
@@ -179,7 +178,7 @@ const actions = {
   },
 
   async createRent(_, payload) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
     try {
       await postApi.createRent(token, payload);
@@ -189,7 +188,7 @@ const actions = {
   },
 
   async getRentByOwner() {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
     try {
       const response = await postApi.getRentByOwner(token);

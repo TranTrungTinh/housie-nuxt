@@ -3160,7 +3160,7 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-express@^4.16.3:
+express@^4.16.3, express@^4.16.4:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
   integrity sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg==
@@ -7888,6 +7888,11 @@ vue-no-ssr@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz#875f3be6fb0ae41568a837f3ac1a80eaa137b998"
   integrity sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==
+
+vue-progressbar@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/vue-progressbar/-/vue-progressbar-0.7.5.tgz#414730892252b1e45582d4979dec93038e007f79"
+  integrity sha512-VeNG/inMsFbvdCTS7lJ1gjDAKSUZdqkhW9gS1tb0we1rqFKxR+BCEiVUgw5C84vODKb14M2GWHTw0WVdpoVg6g==
 
 vue-ref@^1.0.4:
   version "1.0.6"

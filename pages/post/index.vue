@@ -3,15 +3,15 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { FirstStep, SecondStep, ThirdStep, FourthStep, ConfirmStep } from '@/components/steps';
-// import { initLoadProgress } from '@/mixins';
+import { initLoadProgress } from '@/mixins';
 
 export default {
-    middleware: ["check-auth", "auth"],
+    middleware: ["auth"],
     head: {
         title: 'Đăng phòng cho thuê - Housie'
     },
     components: { FirstStep, SecondStep, ThirdStep, FourthStep, ConfirmStep },
-    // mixins: [initLoadProgress],
+    mixins: [initLoadProgress],
     data() {
         return {
             step: 1,

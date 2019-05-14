@@ -1,5 +1,4 @@
 import { commentApi } from '@/api';
-import { cookie } from '@/helpers';
 
 // const initialState = () => {
 //     return {
@@ -36,7 +35,7 @@ const actions = {
         }
     },
     async createComment(_, payload) {
-        const token = cookie.get('auth');
+        const token = localStorage.getItem('auth');
         if(!token) throw new Error('TOKEN_EXPIED');
 
         try {
@@ -47,7 +46,7 @@ const actions = {
         }
     },
     async deleteComment(_, payload) {
-        const token = cookie.get('auth');
+        const token = localStorage.getItem('auth');
         if(!token) throw new Error('TOKEN_EXPIED');
 
         try {

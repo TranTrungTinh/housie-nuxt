@@ -1,17 +1,16 @@
-import pkg from './package'
 
-export default {
+module.exports = {
   mode: 'universal',
 
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'Housie',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: 'My ace Nuxt.js project' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -36,6 +35,7 @@ export default {
   */
   plugins: [
     { src: '~plugins/components/core-component.js' },
+    { src: '~plugins/components/vue-progress.js' },
     { src: '~plugins/components/vue-loading.js' },
     { src: '~plugins/components/vue-lazyload.js' },
     { src: '~plugins/components/vue-typer.js', ssr: false},

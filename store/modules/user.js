@@ -1,6 +1,5 @@
 import { authApi } from '@/api';
 import { messageError } from '@/helpers/messageError';
-import { cookie } from '@/helpers';
 
 const initialState = () => {
   return {
@@ -34,31 +33,24 @@ const getters = {
 
 // actions
 const actions = {
-  async nuxtServerInit({ commit }, { req }) {
-    console.log(req.headers.cookie)
-  },
   async firstLoading({ commit }) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
       const response = await authApi.fetchUser(token);
-      commit('loginSuccess', { user: response.data.user });
+      commit('loginSuccess', { user: response.data.user, userId: token });
     } catch(error) {
       throw new Error('FAIL_FETCH_API_ME');
     }
   },
 
-  initAuth({ commit }, req) {
-    console.log(req);
-  },
-
   async logout ({ commit }) {
     try {
-      const token = cookie.get('auth');
+      const token = localStorage.getItem('auth');
       await authApi.logout(token);
-      cookie.remove('auth');
-      cookie.remove('authFb');
+      localStorage.removeItem('auth');
+      localStorage.removeItem('authFb');
       commit('logout');
     } catch (error) {
       throw new Error('CAN_NOT_LOGOUT');      
@@ -70,7 +62,7 @@ const actions = {
     try {
       const response = await authApi.login(email, password);
       commit('loginSuccess', { user: response.data.user, userId: response.data.id });
-      cookie.set('auth', response.data.id);
+      localStorage.setItem('auth', response.data.id);
     } catch (error) {
       commit('loginFail', messageError(error.response.status))
     }
@@ -80,26 +72,26 @@ const actions = {
     const { token } = payload;
     try {
       const response = await authApi.loginGoogle(token);
-      commit('loginSuccess', { user: response.data.user });
-      cookie.set('auth', response.data.id);
+      commit('loginSuccess', { user: response.data.user, userId: response.data.id });
+      localStorage.setItem('auth', response.data.id);
     } catch(ex) {
       throw new Error('GOOGLE_FAIL');
     }
   },
 
   async loginFacebook({ commit }, payload) {
-    const token = payload.token || cookie.get('authFb');
+    const token = payload.token || localStorage.getItem('authFb');
     try {
       const response = await authApi.loginFacebook(token);
-      commit('loginSuccess', { user: response.data.user });
-      cookie.set('auth', response.data.id);
+      commit('loginSuccess', { user: response.data.user, userId: response.data.id });
+      localStorage.setItem('auth', response.data.id);
     } catch(ex) {
       throw new Error('FACEBOOK_FAIL');
     }
   },
 
   logoutFacebook({ commit }, payload) {
-    cookie.set('authFb', payload.token);
+    localStorage.setItem('authFb', payload.token);
   },
 
   async signUp(_, payload) {
@@ -107,8 +99,8 @@ const actions = {
   },
 
   async updateProfile({ commit }, profile) {
-    const token = cookie.get('auth');
-    if(!token) return;
+    const token = localStorage.getItem('auth');
+    if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
       const response = await authApi.updateProfile(token, profile);
@@ -119,8 +111,8 @@ const actions = {
   },
 
   async changePassword(_, profile) {
-    const token = cookie.get('auth');
-    if(!token) return;
+    const token = localStorage.getItem('auth');
+    if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
       await authApi.changePassword(token, profile);

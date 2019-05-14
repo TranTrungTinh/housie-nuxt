@@ -1,5 +1,4 @@
 import { taskApi } from '@/api';
-import { cookie } from '@/helpers';
 
 const initialState = () => {
   return {
@@ -24,7 +23,7 @@ const mutations = {
 const actions = {
 
   async createTask(_, payload) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
@@ -35,7 +34,7 @@ const actions = {
   },
 
   async getMyTask(_, id) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
@@ -47,7 +46,7 @@ const actions = {
   },
 
   async getTaskById(_, payload) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {
@@ -59,7 +58,7 @@ const actions = {
   },
 
   async updateTask(_, payload) {
-    const token = cookie.get('auth');
+    const token = localStorage.getItem('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
 
     try {

@@ -7,12 +7,12 @@ import { Thumbnail } from '@/components/thumbnail';
 import { Typed } from '@/components/utils';
  
 import { getCitiesByCode, getDistrictsByCode } from '@/helpers/readLocation.js';
-// import { mapActions } from 'vuex';
-// import { initLoadProgress } from '@/mixins';
+import { mapActions } from 'vuex';
+import { initLoadProgress } from '@/mixins';
 
 export default {
   components: { CardHire, Typed, Selected, Thumbnail },
-  // mixins: [initLoadProgress],
+  mixins: [initLoadProgress],
   data () {
     return {
       address: {
@@ -30,9 +30,9 @@ export default {
     }
   },
   methods: {
-  //   ...mapActions({
-  //     getPostsByFiltered: 'post/getPostsByFiltered'
-  //   }),
+    ...mapActions({
+      getPostsByFiltered: 'post/getPostsByFiltered'
+    }),
     onSelectedCity({ code, data }) {
       Object.assign(this.address.city, { code, data })
     },
@@ -55,8 +55,8 @@ export default {
   mounted() {
     const loader = this.$loading.show();
     Promise.all([
-      this.$store.dispatch('post/getPostsByFiltered', { limit: 8 }), 
-      this.$store.dispatch('post/getPostsByFiltered', { limit: 8, type: 2})
+      this.getPostsByFiltered({ limit: 8 }), 
+      this.getPostsByFiltered({ limit: 8, type: 2})
     ]).then(data => {
         this.newPosts = data[0];
         this.apartments = data[1];
