@@ -1,0 +1,47 @@
+<section class="post-page">
+    <div class="container post-page-container">
+        <div class="steps--content">
+             <a-row :gutter="20" v-if="!stepDone">
+                 <a-col :xs="24" :lg="12">
+                     <div class="steps--content__intro">
+                        <div class="steps--content__intro-img">
+                            <img src="~@/assets/img/post-img.svg" alt="Image cover" />
+                        </div>
+                        <span>Kết nối phòng của bạn với người thuê nhanh chóng hơn khi đăng qua hệ thống của Housie</span>
+                    </div>
+                 </a-col>
+                 <a-col :xs="24" :lg="12">
+                    <FirstStep v-if="step === 1" :onData="getDataFirstStep" ref="firstStep" />
+                    <SecondStep v-if="step === 2" :onData="getDataSecondStep" ref="secondStep"/>
+                    <ThirdStep v-if="step === 3" :onData="getDataThirdStep" ref="thirdStep"/>
+                    <FourthStep v-if="step === 4" :onData="getDataFourthStep" ref="fourthStep"/>
+                    <ConfirmStep v-if="step === 5" :onData="rollbackStep" />
+                 </a-col>
+             </a-row>
+             <div class="steps--content__posting" v-else>
+                <h4> {{ percent < 100 ? 
+                    'Chúng tôi đang đăng phòng của bạn lên hệ thống':
+                    'Tin cho thuê của bạn đã được đăng' }}</h4>
+                <a-progress 
+                    type="circle" 
+                    :percent="percent" 
+                    strokeColor="#FD3D76"
+                    status="active"
+                />
+                <p v-if="percent < 100">Vui lòng chờ...</p>
+                <router-link tag="div" to="/" class="steps--content__posting--backhome" v-else>
+                    Về trang chủ
+                </router-link>
+             </div>
+        </div>
+
+        <div class="steps--control" v-if="!stepDone">
+            <div :class="['steps--control__back', {'disable': step === 1}]" @click="pre">
+                <i class="far fa-angle-left"></i>
+                <span>Quay lại</span>
+            </div>
+            <div class="steps--control__continute" v-if="step === 5" @click="handlePost">Đăng phòng</div>
+            <div class="steps--control__continute" v-else @click="next">Tiếp tục</div>
+        </div>
+    </div>
+</section>

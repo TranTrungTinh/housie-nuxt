@@ -11,6 +11,7 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
+import nuxt_plugin_cookieuniversalnuxt_6fc1e5b5 from 'nuxt_plugin_cookieuniversalnuxt_6fc1e5b5' // Source: ./cookie-universal-nuxt.js (mode: 'all')
 import nuxt_plugin_corecomponent_30682834 from 'nuxt_plugin_corecomponent_30682834' // Source: ../plugins/components/core-component.js (mode: 'all')
 import nuxt_plugin_vueloading_02206bf8 from 'nuxt_plugin_vueloading_02206bf8' // Source: ../plugins/components/vue-loading.js (mode: 'all')
 import nuxt_plugin_vuelazyload_235773b4 from 'nuxt_plugin_vuelazyload_235773b4' // Source: ../plugins/components/vue-lazyload.js (mode: 'all')
@@ -155,6 +156,10 @@ async function createApp(ssrContext) {
   }
 
   // Plugin execution
+
+  if (typeof nuxt_plugin_cookieuniversalnuxt_6fc1e5b5 === 'function') {
+    await nuxt_plugin_cookieuniversalnuxt_6fc1e5b5(app.context, inject)
+  }
 
   if (typeof nuxt_plugin_corecomponent_30682834 === 'function') {
     await nuxt_plugin_corecomponent_30682834(app.context, inject)

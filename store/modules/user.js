@@ -26,11 +26,17 @@ const getters = {
   },
   currentError: (_state, getters) => {
       return getters.authState.error
+  },
+  isAuthenticated: (_, getters) => {
+    return getters.userId;
   }
 }
 
 // actions
 const actions = {
+  async nuxtServerInit({ commit }, { req }) {
+    console.log(req.headers.cookie)
+  },
   async firstLoading({ commit }) {
     const token = cookie.get('auth');
     if(!token) throw new Error('TOKEN_EXPIRED');
@@ -41,6 +47,10 @@ const actions = {
     } catch(error) {
       throw new Error('FAIL_FETCH_API_ME');
     }
+  },
+
+  initAuth({ commit }, req) {
+    console.log(req);
   },
 
   async logout ({ commit }) {
@@ -59,7 +69,7 @@ const actions = {
     const { email, password } = payload;
     try {
       const response = await authApi.login(email, password);
-      commit('loginSuccess', { user: response.data.user });
+      commit('loginSuccess', { user: response.data.user, userId: response.data.id });
       cookie.set('auth', response.data.id);
     } catch (error) {
       commit('loginFail', messageError(error.response.status))
@@ -137,7 +147,7 @@ const mutations = {
     Object.assign(state, { error: '' })
   },
   loginSuccess(state, payload) {
-    Object.assign(state, { user: payload.user, error: '' })
+    Object.assign(state, { ...payload, error: '' });
   },
   updateProfile(state, payload) {
     Object.assign(state, { user: payload.user })

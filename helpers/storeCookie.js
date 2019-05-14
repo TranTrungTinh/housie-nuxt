@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 export default {
     set(key, token) {
-      Cookies.set(key, token, { expires: 30, secure: true });
+      Cookies.set(key, token);
     },
 
     get(key) {

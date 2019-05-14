@@ -1,0 +1,188 @@
+.post-page {
+    background: #f9f9f9;
+
+    &-container {
+        background: #fff;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+.steps {
+    margin: 0 25%;
+    padding: 20px 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &--item {
+        
+        text-align: center;
+        max-width: 100px;
+        position: relative;
+
+        &__icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            
+            border-radius: 5px;
+            font-size: 28px;
+            line-height: 45px;
+            color: #8A8A8F;
+            background: #EFEFF4;
+        }
+        &__title {
+            position: absolute;
+            width: 100px;
+            left: -50%;
+            top: 105%;
+            font-size: 18px;
+        }
+
+    }
+
+    &--content {
+        height: 100vh;
+        padding: 50px 30px 80px 30px;
+        width: 100%;
+        overflow-y: scroll;
+
+        &__intro {
+
+            &-img {
+                & img {
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+
+            & span {
+                display: inline-block;
+                margin: 20px 50px 0 50px;
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 33px;
+                text-align: center;
+                color: #3E74FF;
+
+            }
+        }
+
+        &__posting {
+            text-align: center;
+
+            & h4 {
+                font-size: 24px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: #FD3D76;
+            }
+
+            & p {
+                font-size: 18px;
+                margin-top: 5px;
+                font-weight: 500;
+                color: #8A8A8F;
+            }
+
+            & i {
+                font-size: 50px;
+                font-weight: 500;
+                color: #FD3D76;
+            }
+
+            &--backhome {
+                font-size: 22px;
+                color: #fff;
+                border-radius: 10px;
+                width: 200px;
+                height: 50px;
+                line-height: 50px;
+                margin: 20px auto;
+                background: #FD3D76;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &--bridge {
+        width: 100%;
+        height: 5px;
+        background: #EFEFF4;
+    }
+
+    &--control {
+        position: fixed;
+        width: 100%;
+        max-width: 1140px;
+        bottom: 5px;
+
+        padding: 0px 2%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // border-top: 3px solid #EFEFF4;
+        border-radius: 0 0 6px 6px;
+
+        &__back {
+            width: 50%;
+            height: 50px;
+            color: #FD3D76;
+            font-size: 24px;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-transform: uppercase;
+            border: solid 1px #FD3D76;
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+
+            & > i {
+                font-size: 28px;
+                padding-right: 10px;
+            }
+            & > span {
+                padding-bottom: 2px;
+            }
+        }
+
+        &__continute {
+            width: 50%;
+            height: 50px;
+            line-height: 50px;
+            background: #FD3D76;
+            text-transform: uppercase;
+            text-align: center;
+            
+            color: #fff;
+            font-size: 24px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}
+.current-step {
+    border: 2px solid #FD3D76;
+    background: #fff;
+    color: #FD3D76;
+}
+.done-step {
+    background: #FD3D76;
+    color: #fff;
+}
+
+.done-bridge {
+    background: #FD3D76;
+}
+
+.disable {
+    color: #8A8A8F;
+    border: solid 1px #8A8A8F;
+    cursor: none;
+}
