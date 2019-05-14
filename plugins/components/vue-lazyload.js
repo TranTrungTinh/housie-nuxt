@@ -1,6 +1,5 @@
 import Vue from 'vue';
-import VueLazyload from 'vue-lazyload'
-
+import VueLazyload from 'vue-lazyload';
 // or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,

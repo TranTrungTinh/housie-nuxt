@@ -3,6 +3,12 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../styles/global.css'
 
+import '../node_modules/ant-design-vue/dist/antd.min.css'
+
+import '../node_modules/vue-loading-overlay/dist/vue-loading.css'
+
+import '../node_modules/swiper/dist/css/swiper.css'
+
 import _6f6c098b from '../layouts/default.vue'
 
 const layouts = { "_default": _6f6c098b }

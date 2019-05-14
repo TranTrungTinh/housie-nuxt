@@ -1,0 +1,182 @@
+<section class="detail">
+    <div v-if="postDetail && postDetail.title">
+        <div class="detail-bg">
+            <Preview :attactment="postDetail.attactment" />
+        </div>
+        <div class="container">
+            <div class="detail-body">
+                <a-row :gutter="16">
+                    <a-col :xs="24" :lg="16">
+                        <div class="detail-body--head">
+                            <div class="detail-body--head_title">{{ postDetail.title }}</div>
+                            <a-row :gutter="20">
+                                <a-col :xs="12">
+                                    <div class="detail-body--head_sub">Diện tích</div>
+                                    <div class="detail-body--head_content">{{ postDetail.square }}m<sup>2</sup></div>
+                                </a-col>
+                                <a-col :xs="12">
+                                    <div class="detail-body--head_sub">Sức chứa</div>
+                                    <div class="detail-body--head_content">4 người</div>
+                                </a-col>
+                            </a-row>
+                        </div>
+                        <a-divider></a-divider>
+                        <div class="detail-body--item">
+                            <div class="detail-body--item_title">Tiện ích</div>
+                            <div class="detail-body--item_content">
+                                <a-row :gutter="20">
+                                    <a-col :xs="24" :md="12" :xl="8" v-for="item in filteredUtils" :key="item.id">
+                                        <Utilities :id="item.id" :icon="item.icon" :title="item.title"
+                                            :choose="item.choose" />
+                                    </a-col>
+                                </a-row>
+                            </div>
+                        </div>
+                        <div class="detail-body--item">
+                            <div class="detail-body--item_title">Mô tả</div>
+                            <div class="detail-body--item_content">
+                                {{ postDetail.description }}
+                            </div>
+                        </div>
+                        <div class="detail-body--item">
+                            <div class="detail-body--item_title">Địa chỉ</div>
+                            <div class="detail-body--item_content">
+                                <span>{{fullAddress}}</span>
+                            </div>
+                            <div class="detail-body--item_map">
+                                <GmapMap :center="postDetail.location" :zoom="14" map-type-id="terrain"
+                                    style="width: 100%; height: 400px" :options="{
+                                        zoomControl: true,
+                                        mapTypeControl: false,
+                                        scaleControl: false,
+                                        streetViewControl: false,
+                                        rotateControl: false,
+                                        fullscreenControl: true,
+                                        disableDefaultUi: false
+                                    }">
+                                    <GmapMarker :position="postDetail.location" />
+                                </GmapMap>
+                            </div>
+                            <div class="detail-body--item_owner">
+                                <div>
+                                    <a-avatar :size="42" :src="renderAvatar(postDetail.account.avatar)" icon="user" />
+                                </div>
+                                <div class="detail-body--item_owner--content">
+                                    <div>Đăng bởi</div>
+                                    <span>{{ onwerPost }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a-divider></a-divider>
+                        <div class="detail-body--item">
+                            <div class="detail-body--item_title">Bình luận</div>
+                            <div class="detail-body--item_content">
+                                <Comment :postId="postId" />
+                            </div>
+                        </div>
+                    </a-col>
+                    <a-col :xs="24" :lg="8">
+                        <div :class="['detail-body--info', { 'fixed' : affix === 1 }, { 'absolute': affix === 2 }]">
+                            <div class="detail-body--info_price">
+                                <span class="detail-body--info_price--title">Giá thuê</span>
+                                <span
+                                    class="detail-body--info_price--content">{{postDetail.price | thousand | currency}}
+                                    đ/th</span>
+                            </div>
+                            <a-divider></a-divider>
+                            <div class="detail-body--info_item">
+                                <div class="detail-body--info_item_sub">
+                                    <i class="fas fa-lightbulb-on"></i>
+                                    <span>Tiền điện</span>
+                                </div>
+                                <div class="detail-body--info_item_price">
+                                    {{postDetail.extensions.electricity | currency}} đ/th</div>
+                            </div>
+                            <div class="detail-body--info_item">
+                                <div class="detail-body--info_item_sub">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Tiền nước</span>
+                                </div>
+                                <div class="detail-body--info_item_price">{{postDetail.extensions.water | currency}}
+                                    đ/th</div>
+                            </div>
+                            <div class="detail-body--info_item">
+                                <div class="detail-body--info_item_sub">
+                                    <i class="far fa-wifi"></i>
+                                    <span>Internet/Wifi</span>
+                                </div>
+                                <div class="detail-body--info_item_price">{{151000 | currency}} đ</div>
+                            </div>
+                            <a-divider></a-divider>
+                            <!-- <div class="detail-body--info_item">
+                                    <div class="detail-body--info_item_sub">
+                                        <span>Chi phí khác</span>
+                                    </div>
+                                    <div class="detail-body--info_item_price">{{55000 | currency}} đ</div>
+                                </div>
+                                <div class="detail-body--info_item">
+                                    <div class="detail-body--info_item_sub">
+                                        <span>Chi phí khác</span>
+                                    </div>
+                                    <div class="detail-body--info_item_price">{{38000 | currency}} đ</div>
+                                </div> -->
+                            <div class="detail-body--info_button" v-if="!isOwnersRoom">
+                                <div class="detail-body--info_button_help" @click="handleHelper"
+                                    v-if="isUser && !isTaskExisted">
+                                    Nhờ người xem phòng giúp
+                                </div>
+                                <div v-if="isUser && isTaskExisted">
+                                    <div class="detail-body--info_button_already-help"
+                                        v-if="isTaskExisted.status === 0">
+                                        Đã tạo yêu cầu xem phòng giúp
+                                    </div>
+                                    <div class="detail-body--info_button_done-help" v-else>
+                                        Kết quả xem phòng
+                                    </div>
+                                </div>
+                                <div class="detail-body--info_button_phone" v-if="onShowPhone">{{ postDetail.phone }}
+                                </div>
+                                <div class="detail-body--info_button_show" v-else @click="onShowPhone = true">
+                                    Nhấn để hiện số điện thoại
+                                </div>
+                            </div>
+                            <div class="detail-body--info_button" v-else>
+                                <div class="detail-body--info_button_show">
+                                    Ẩn tin
+                                </div>
+                                <div class="detail-body--info_button_help">
+                                    Chỉnh sửa
+                                </div>
+                            </div>
+                            <div>
+                                <ConfirmHelperModal ref="helperModal" />
+                            </div>
+                        </div>
+                    </a-col>
+                </a-row>
+            </div>
+        </div>
+        <div class="detail-divider"></div>
+        <div class="detail-prefer">
+            <div class="container">
+                <div class="detail-prefer--title">
+                    Cùng khu vực
+                </div>
+                <div class="detail-prefer--content">
+                    <Prefer :posts="postPrefer" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail-404 container" v-else-if="notFound">
+        <div class="detail-404--content">
+            <h1>AWWW...ĐỪNG KHÓC.</h1>
+            <p>404 Lỗi!</p>
+            <p>Housie không tìm thấy tin bạn cần.</p>
+        </div>
+        <div class="detail-404--img">
+            <img v-lazy="'https://static1.squarespace.com/static/51cdafc4e4b09eb676a64e68/t/57a119e3f5e23161e8daf73d/1470175723578/?format=1000w'"
+                alt="404" />
+        </div>
+    </div>
+</section>

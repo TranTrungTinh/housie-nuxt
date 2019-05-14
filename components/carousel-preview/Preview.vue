@@ -20,8 +20,10 @@
     </div>
 </template>
 <script>
-import 'swiper/dist/css/swiper.min.css';
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
+// if (process.browser) {
+//   const { swiper, swiperSlide } = require('vue-awesome-swiper');
+// }
+const { swiper, swiperSlide } = require('vue-awesome-swiper');
 import { format } from '@/helpers';
 
 export default {

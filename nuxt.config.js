@@ -27,7 +27,10 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~styles/global.css'
+    '~styles/global.css',
+    'ant-design-vue/dist/antd.min.css',
+    'vue-loading-overlay/dist/vue-loading.css',
+    'swiper/dist/css/swiper.css'
   ],
 
   /*
@@ -36,9 +39,11 @@ module.exports = {
   plugins: [
     { src: '~plugins/components/core-component.js' },
     { src: '~plugins/components/vue-progress.js' },
-    { src: '~plugins/components/vue-loading.js' },
+    { src: '~plugins/components/vue-loading.js', ssr: false },
     { src: '~plugins/components/vue-lazyload.js' },
     { src: '~plugins/components/vue-typer.js', ssr: false},
+    { src: '~plugins/components/vue-swiper.js', ssr: false },
+    { src: "~plugins/components/vue-google-map.js", ssr: true },
 
     { src: '~plugins/filters/currency.js'},
     { src: '~plugins/filters/fromNow.js'},
@@ -57,7 +62,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
-    }
+    transpile: [/^vue2-google-maps($|\/)/],
+    extend(config, ctx) {}
   }
 }
