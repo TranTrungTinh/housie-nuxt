@@ -1,36 +1,36 @@
 <template>
     <div class="prefer">
-        <swiper :options="swiperOption">
-            <swiper-slide v-for="(item, i) in posts" :key="i">
-                <div class="prefer--item">
-                    <Thumbnail 
-                        :id="item.id"
-                        :title="item.title"
-                        :image="item.attactment[0]"
-                        :district="item.district"
-                        :address="item.description"
-                        :price="item.price"
-                    />
+        <div v-swiper:mySwiper="swiperOption">
+            <div class="swiper">
+                <div class="swiper-slide" v-for="(item, i) in posts" :key="i">
+                    <div class="prefer--item">
+                        <Thumbnail 
+                            :id="item.id"
+                            :title="item.title"
+                            :image="item.attactment[0]"
+                            :district="item.district"
+                            :address="item.description"
+                            :price="item.price"
+                        />
+                    </div>
                 </div>
-            </swiper-slide>
-            <swiper-slide class="prefer--item_loading" v-if="posts.length === 0">
+            </div>
+            <div class="prefer--item_loading" v-if="posts.length === 0">
                 <i class="fal fa-spinner fa-spin"></i>
-            </swiper-slide>
-            <!-- <div class="swiper-pagination" slot="pagination"></div> -->
+            </div>
             <div class="swiper-button-prev" slot="button-prev"></div>
             <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
+        </div>
     </div>
 </template>
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import { Thumbnail } from '@/components/thumbnail';
 
 export default {
     props: {
         posts: { type: Array, required: true, default: () => [] }
     },
-    components: { swiper, swiperSlide, Thumbnail },
+    components: { Thumbnail },
     data() {
         return {
             swiperOption: {
@@ -75,6 +75,7 @@ export default {
         shiftSlide() {
             this.swiperSlides.shift()
         }
+        
     }
 }
 </script>
@@ -92,6 +93,9 @@ export default {
     }
 }
 .swiper {
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-around;
 
     &-container {
         max-height: 500px;
@@ -109,7 +113,7 @@ export default {
     }
 
     // &-slide {
-
+        
     // }
 }
 </style>

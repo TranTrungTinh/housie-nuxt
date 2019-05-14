@@ -1,6 +1,6 @@
 export default {
     created() {
-        this.$Progress.start();
-        setTimeout(() => this.$Progress.finish(), 500);
+        // this.$Progress.start();
+        // setTimeout(() => this.$Progress.finish(), 500);
     }
 } 

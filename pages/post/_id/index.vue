@@ -10,10 +10,20 @@ import { facility, storage, format } from '@/helpers';
 const ConfirmHelperModal = () => import('@/components/task/ConfirmHelperModal');
 
 export default {
+    head() {
+        return {
+            title: this.rootTitle,
+            meta: [
+                // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+                { hid: 'description', name: 'description', content: 'My custom description' }
+            ]
+        }
+    },
     components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal },
     mixins: [initLoadProgress, currentUser],
     data() {
         return {
+            rootTitle: '',
             facilities: facility.getFacilities(),
             onShowPhone: false,
             postPrefer: [],
@@ -62,10 +72,11 @@ export default {
         }),
         loadDetail(id) {
             const loader = this.$loading.show();
+
             this.postDetail = {};
             this.getPostById(id)
             .then(data => {
-                document.title = `${data.ward.path_with_type} cho thuê - Housie`;
+                this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
                 this.postDetail = data;
                 this.getPostsByFiltered({ limit: 8, districts: data.district.code})
                 .then(results => this.postPrefer = results);
@@ -74,7 +85,7 @@ export default {
             .catch(() => {
                 this.notFound = true;
                 setTimeout(() => loader.hide(), 500);
-                // setTimeout(() => this.$router.push({ path: '/' }), 5000);
+                setTimeout(() => this.$router.push({ path: '/' }), 5000);
             })
         },
         renderAvatar(avatar) {
@@ -104,9 +115,11 @@ export default {
             this.affix = 2;
         }
     },
-    created() {
-        this.postId = this.$route.params.id || '1';
-        this.loadDetail(this.postId);
+    mounted() {
+        this.$nextTick(() => {
+            this.postId = this.$route.params.id || '1';
+            this.loadDetail(this.postId);
+        })
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll);

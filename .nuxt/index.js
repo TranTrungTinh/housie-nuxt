@@ -12,12 +12,11 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_corecomponent_30682834 from 'nuxt_plugin_corecomponent_30682834' // Source: ../plugins/components/core-component.js (mode: 'all')
-import nuxt_plugin_vueprogress_305e3b01 from 'nuxt_plugin_vueprogress_305e3b01' // Source: ../plugins/components/vue-progress.js (mode: 'all')
-import nuxt_plugin_vueloading_02206bf8 from 'nuxt_plugin_vueloading_02206bf8' // Source: ../plugins/components/vue-loading.js (mode: 'client')
-import nuxt_plugin_vuelazyload_235773b4 from 'nuxt_plugin_vuelazyload_235773b4' // Source: ../plugins/components/vue-lazyload.js (mode: 'all')
 import nuxt_plugin_vuetyper_4d6150f0 from 'nuxt_plugin_vuetyper_4d6150f0' // Source: ../plugins/components/vue-typer.js (mode: 'client')
 import nuxt_plugin_vueswiper_e71552d4 from 'nuxt_plugin_vueswiper_e71552d4' // Source: ../plugins/components/vue-swiper.js (mode: 'client')
 import nuxt_plugin_vuegooglemap_200fe5c6 from 'nuxt_plugin_vuegooglemap_200fe5c6' // Source: ../plugins/components/vue-google-map.js (mode: 'all')
+import nuxt_plugin_vuelazyload_235773b4 from 'nuxt_plugin_vuelazyload_235773b4' // Source: ../plugins/components/vue-lazyload.js (mode: 'all')
+import nuxt_plugin_vueloading_02206bf8 from 'nuxt_plugin_vueloading_02206bf8' // Source: ../plugins/components/vue-loading.js (mode: 'all')
 import nuxt_plugin_currency_c099320a from 'nuxt_plugin_currency_c099320a' // Source: ../plugins/filters/currency.js (mode: 'all')
 import nuxt_plugin_fromNow_2944a656 from 'nuxt_plugin_fromNow_2944a656' // Source: ../plugins/filters/fromNow.js (mode: 'all')
 
@@ -163,18 +162,6 @@ async function createApp(ssrContext) {
     await nuxt_plugin_corecomponent_30682834(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vueprogress_305e3b01 === 'function') {
-    await nuxt_plugin_vueprogress_305e3b01(app.context, inject)
-  }
-
-  if (process.client && typeof nuxt_plugin_vueloading_02206bf8 === 'function') {
-    await nuxt_plugin_vueloading_02206bf8(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_vuelazyload_235773b4 === 'function') {
-    await nuxt_plugin_vuelazyload_235773b4(app.context, inject)
-  }
-
   if (process.client && typeof nuxt_plugin_vuetyper_4d6150f0 === 'function') {
     await nuxt_plugin_vuetyper_4d6150f0(app.context, inject)
   }
@@ -185,6 +172,14 @@ async function createApp(ssrContext) {
 
   if (typeof nuxt_plugin_vuegooglemap_200fe5c6 === 'function') {
     await nuxt_plugin_vuegooglemap_200fe5c6(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuelazyload_235773b4 === 'function') {
+    await nuxt_plugin_vuelazyload_235773b4(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vueloading_02206bf8 === 'function') {
+    await nuxt_plugin_vueloading_02206bf8(app.context, inject)
   }
 
   if (typeof nuxt_plugin_currency_c099320a === 'function') {

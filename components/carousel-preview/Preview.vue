@@ -1,6 +1,6 @@
 <template>
     <div class="preview">
-      <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
+      <!-- <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
         <swiper-slide
           v-for="(img, i) in attactment" :key="i" 
           v-lazy:background-image="renderImg(img)"
@@ -16,18 +16,33 @@
           v-lazy:background-image="renderImg(img)"
         >
         </swiper-slide>
-      </swiper>
+      </swiper> -->
+      <div v-swiper:mySwiper="swiperOptionTop" class="gallery-top" ref="swiperTop">
+          <div class="swiper-slide"
+            v-for="(img, i) in attactment" :key="i" 
+            v-lazy:background-image="renderImg(img)"
+          >
+        </div>
+        <!-- <div class="swiper-button swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button swiper-button-prev swiper-button-white"></div> -->
     </div>
+    <div v-swiper:mySwiper="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
+        <div class="swiper-slide"
+          v-for="(img, i) in attactment" :key="i" 
+          v-lazy:background-image="renderImg(img)"
+        >
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 // if (process.browser) {
 //   const { swiper, swiperSlide } = require('vue-awesome-swiper');
 // }
-const { swiper, swiperSlide } = require('vue-awesome-swiper');
+// const { swiper, swiperSlide } = require('vue-awesome-swiper');
 import { format } from '@/helpers';
 
 export default {
-  components: { swiper, swiperSlide },
   props: {
     attactment: { type: Array, default: () => [] }
   },
@@ -63,12 +78,12 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      const swiperTop = this.$refs.swiperTop.swiper
-      const swiperThumbs = this.$refs.swiperThumbs.swiper
-      swiperTop.controller.control = swiperThumbs
-      swiperThumbs.controller.control = swiperTop
-    });
+    // this.$nextTick(() => {
+    //   let swiperTop = this.$refs.swiperTop.swiper
+    //   let swiperThumbs = this.$refs.swiperThumbs.swiper
+    //   swiperTop.controller.control = swiperThumbs
+    //   swiperThumbs.controller.control = swiperTop
+    // });
   }
 }
 </script>
