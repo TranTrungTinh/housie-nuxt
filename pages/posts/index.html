@@ -1,0 +1,142 @@
+<section class="posts">
+    <a-row :gutter="20">
+        <a-col :xs="24" :md="6">
+            <div class="posts-filter">
+                <div class="posts-filter--title">
+                    <span v-if="!showFilteredOption">Bộ lọc</span>
+                    <div class="posts-filter--title__clear" v-else @click="handleClearFiltered">
+                        Xoá tất cả bộ lọc
+                    </div>
+                </div>
+                <div class="posts-filter--body">
+                    <a-collapse :bordered="true" :defaultActiveKey="['1','2']">
+                        <a-collapse-panel header="Loại phòng" key="1" class="posts-filter--body__item">
+                            <Type :onChoose="onRoomType" ref="type" />
+                        </a-collapse-panel>
+                        <a-collapse-panel header="Mức giá" key="2" class="posts-filter--body__item">
+                            <a-radio-group v-model="value" class="box">
+                                <a-radio class="posts-filter--body__item--radio" :value="1">Chọn khoảng giá</a-radio>
+                                <Range :onChange="onRangePrice" ref="range" v-show="value === 1" />
+                                <a-radio class="posts-filter--body__item--radio" :value="2">Định mức giá</a-radio>
+                                <div class="posts-filter--body__item--price" v-show="value === 2">
+                                    <div class="posts-filter--body__item--price--show">
+                                        <span>{{ filtered.priceRange.min | currency }} đ</span>
+                                        <span>-</span>
+                                        <span>{{ filtered.priceRange.max | currency }} đ</span>
+                                    </div>
+                                    <div class="posts-filter--body__item--price--input">
+                                        <span>Giá tối thiểu</span>
+                                        <a-input 
+                                            size="large" 
+                                            type="text" 
+                                            addonAfter="đ" 
+                                            placeholder="Mức giá tối thiểu"
+                                            min="100000"
+                                            v-model="filtered.priceRange.min"
+                                        />
+                                    </div>
+                                    <div class="posts-filter--body__item--price--input">
+                                        <span>Giá tối đa</span>
+                                        <a-input 
+                                            size="large" 
+                                            type="number" 
+                                            addonAfter="đ" 
+                                            placeholder="Mức giá tối đa"
+                                            min="100000"
+                                            max="30000000000"
+                                            v-model="filtered.priceRange.max"
+                                        />
+                                    </div>
+                                </div>
+                            </a-radio-group>
+                        </a-collapse-panel>
+                        <a-collapse-panel header="Khu vực" key="3" class="posts-filter--body__item">
+                            <Selected 
+                                :selects="getDistricts"
+                                :onSelected="onSelectedDistrict"
+                                size="large"
+                                placeholder="Bấm để chọn quận"
+                                :setSelected="filtered.districts"
+                            />
+                        </a-collapse-panel>
+                        <a-collapse-panel header="Tiện ích" key="4" class="posts-filter--body__item">
+                            <a-row :gutter="16">
+                                <a-col :xs="12" :sm="8" :md="24" :xl="12" v-for="item in facilities" :key="item.id">
+                                    <Utilities 
+                                        :id="item.id" 
+                                        :icon="item.icon" 
+                                        :title="item.title" 
+                                        :choose="item.choose"
+                                        :onChoose="onChoose" 
+                                    />
+                                </a-col>
+                            </a-row>
+                        </a-collapse-panel>
+                    </a-collapse>
+                </div>
+                <div class="posts-filter--footer">
+                    <div class="posts-filter--footer__button" size="large" @click="handleFilter">
+                        Áp dụng bộ lọc
+                    </div>
+                </div>
+            </div>
+        </a-col>
+        <a-col :xs="24" :md="18">
+            <div class="posts-body">
+                <div class="posts-body--title">
+                    <h1>{{posts.length > 0 ? `Tìm thấy ${posts.length} kết quả phù hợp` : 'Không tìm thấy kết quả phù hợp'}}</h1>
+                    <div class="posts-body--title__sort">
+                        <Selected 
+                            :selects="sorts"
+                            :onSelected="onSelectedSort"
+                            :firstSelected="true"
+                            :setSelected="sortSelected"
+                        />
+                    </div>
+                </div>
+                <div class="posts-body--filtered">
+                    <a-tag color="#FD3D76" v-if="filteredOptions.keywords" closable @close="keywordsClear">
+                        {{ filteredOptions.keywords }}
+                    </a-tag>
+                    <a-tag color="#FD3D76" v-if="filteredOptions.districtsName" closable @close="districtsNameClear">
+                        {{ filteredOptions.districtsName }}
+                    </a-tag>
+                    <a-tag color="#FD3D76" v-if="filteredOptions.typeName" closable @close="roomTypeClear">
+                        {{ filteredOptions.typeName }}
+                    </a-tag>
+                    <a-tag color="#FD3D76" closable @close="priceRangeClear"
+                        v-if="filteredOptions.max < 30000000 && filteredOptions.max > 99">
+                        {{ filteredOptions.min | thousand | currency }}đ - {{ filteredOptions.max | thousand | currency }}đ
+                    </a-tag>
+                    <a-tag color="#FD3D76" v-for="item in filteredOptions.facilities" :key="item.id">
+                        {{ item.title }}
+                    </a-tag>
+                </div>
+                <div class="posts-body--content">
+                    <a-list
+                        :grid="{ gutter: 14, xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }"
+                        :dataSource="filteredPosts"
+                        size="large"
+                        :pagination="pagination"
+                        v-if="filteredPosts.length > 0"
+                    >
+                        <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
+                            <Thumbnail 
+                                :id="item.id" 
+                                :title="item.title" 
+                                :image="item.attactment[0]"
+                                :district="item.district" 
+                                :address="item.description" 
+                                :price="item.price" 
+                            />
+                        </a-list-item>
+                      </a-list>
+                    <div class="posts-body--content_loading" v-else>
+                        <img src="~@/assets/img/not-found.svg" alt="Image not found" />
+                        <p>Housie không tìm thấy kết quả phòng phù hợp !!!</p>
+                    </div>
+                </div>
+            </div>
+        </a-col>
+    </a-row>
+</section>

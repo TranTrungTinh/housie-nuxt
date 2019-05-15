@@ -21,7 +21,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#FD3D76', height: '4px', duration: 5000 },
+  loading: { color: '#FD3D76', height: '2px', duration: 500 },
   /*
   ** Global CSS
   */
@@ -51,7 +51,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // { src: '~plugins/components/vue-progress.js' },
   ],
 
   /*

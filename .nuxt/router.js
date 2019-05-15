@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _4835d5d8 = () => interopDefault(import('../pages/post/index.vue' /* webpackChunkName: "pages/post/index" */))
+const _a6227616 = () => interopDefault(import('../pages/posts/index.vue' /* webpackChunkName: "pages/posts/index" */))
 const _014585ff = () => interopDefault(import('../pages/post/_id/index.vue' /* webpackChunkName: "pages/post/_id/index" */))
 const _0cf69171 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -84,6 +85,10 @@ export function createRouter() {
       path: "/post",
       component: _4835d5d8,
       name: "post"
+    }, {
+      path: "/posts",
+      component: _a6227616,
+      name: "posts"
     }, {
       path: "/post/:id",
       component: _014585ff,

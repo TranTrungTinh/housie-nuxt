@@ -11,21 +11,21 @@
                 <div class="card-hire-main">
                     <div class="card-hire-main--title">{{ title }}</div>
                     <div class="card-hire-main--des">{{ des }}</div>
-                    <nuxt-link class="card-hire-main--button" tag="div" :to="link">{{ button }}</nuxt-link>
-                    <!-- <a-popconfirm placement="right" okText="Đã hiểu" cancelText="Huỷ" @confirm="onPress" v-else>
+                    <nuxt-link class="card-hire-main--button" tag="div" :to="link" v-if="isUser">{{ button }}</nuxt-link>
+                    <a-popconfirm placement="right" okText="Đã hiểu" cancelText="Huỷ" @confirm="onPress" v-else>
                         <template slot="title">
                             <p>Bạn cần đăng nhập trước khi đăng tin</p>
                         </template>
                         <div class="card-hire-main--button">{{ button }}</div>
-                    </a-popconfirm> -->
+                    </a-popconfirm>
                 </div>
             </a-col>
         </a-row>
     </div>
 </template>
 <script>
-// import { currentUser } from '@/mixins';
-// import { EventBus } from '@/helpers/event-bus';
+import { currentUser } from '@/mixins';
+import { EventBus } from '@/helpers/event-bus';
 
 export default {
     props: {
@@ -35,10 +35,10 @@ export default {
         link: { type: String, required: true },
         type: { type: Number, default: 0 }
     },
-    // mixins: [currentUser],
+    mixins: [currentUser],
     methods: {
         onPress() {
-            // EventBus.$emit('open-login-modal');
+            EventBus.$emit('open-login-modal');
         }
     }
 }

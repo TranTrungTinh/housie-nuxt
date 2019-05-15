@@ -1,7 +1,7 @@
 {
   "name": "housie",
   "version": "1.0.0",
-  "description": "My superior Nuxt.js project",
+  "description": "My superior ace Nuxt.js project",
   "author": "Tran Trung Tinh",
   "private": true,
   "scripts": {
@@ -26,7 +26,6 @@
     "vue-google-login": "^2.0.0",
     "vue-lazyload": "^1.2.6",
     "vue-loading-overlay": "^3.2.0",
-    "vue-progressbar": "^0.7.5",
     "vue-typer": "^1.2.0",
     "vue2-google-maps": "^0.10.6"
   },
