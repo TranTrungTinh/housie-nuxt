@@ -1,13 +1,14 @@
 <template src="./index.html"></template>
 <style src="./index.scss" lang="scss" scoped></style>
 <script>
+const ConfirmHelperModal = () => import('@/components/task/ConfirmHelperModal');
+const UpdatePostModal = () => import('@/components/user/UpdatePostModal');
 import { Preview, Prefer } from '@/components/carousel-preview';
 import { Comment } from '@/components/comment';
 import { Utilities } from '@/components/utils';
 import { mapActions } from 'vuex';
 import { initLoadProgress, currentUser } from '@/mixins';
 import { facility, storage, format } from '@/helpers';
-const ConfirmHelperModal = () => import('@/components/task/ConfirmHelperModal');
 
 export default {
     head() {
@@ -19,7 +20,7 @@ export default {
             ]
         }
     },
-    components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal },
+    components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal, UpdatePostModal },
     mixins: [initLoadProgress, currentUser],
     data() {
         return {
@@ -113,6 +114,10 @@ export default {
                 return;
             }
             this.affix = 2;
+        },
+        handleEditPost() {
+            this.$refs.updatePostModal.receiveData(this.postDetail);
+            this.$refs.updatePostModal.showModal();
         }
     },
     created() {

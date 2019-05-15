@@ -79,9 +79,9 @@
                         <div :class="['detail-body--info', { 'fixed' : affix === 1 }, { 'absolute': affix === 2 }]">
                             <div class="detail-body--info_price">
                                 <span class="detail-body--info_price--title">Giá thuê</span>
-                                <span
-                                    class="detail-body--info_price--content">{{postDetail.price | thousand | currency}}
-                                    đ/th</span>
+                                <span class="detail-body--info_price--content">
+                                    {{postDetail.price | thousand | currency}}đ/th
+                                </span>
                             </div>
                             <a-divider></a-divider>
                             <div class="detail-body--info_item">
@@ -144,12 +144,13 @@
                                 <div class="detail-body--info_button_show">
                                     Ẩn tin
                                 </div>
-                                <div class="detail-body--info_button_help">
+                                <div class="detail-body--info_button_help" @click="handleEditPost">
                                     Chỉnh sửa
                                 </div>
                             </div>
                             <div>
                                 <ConfirmHelperModal ref="helperModal" />
+                                <UpdatePostModal ref="updatePostModal" />
                             </div>
                         </div>
                     </a-col>

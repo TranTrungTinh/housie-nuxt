@@ -7,26 +7,28 @@
         <div class="user-request--status__right">
           <i class="fal fa-ellipsis-h-alt"></i>
           <div class="user-request--status__right--popup">
-            <span @click="handleDetail(post.id)">Chi tiết</span>
+            <span @click="handleHide(post.id)">Ẩn tin</span>
             <div class="small"></div>
             <span @click="handleDelete(post.id)">Xoá tin</span>
           </div>
         </div>
-        <a-row :gutter="20" class="user-request--task">
-          <a-col :lg="8">
-            <img v-lazy="renderImg(post.attactment[0])" />
-          </a-col>
-          <a-col :lg="16" class="user-request--task-content">
-            <div class="user-request--task-content--price">{{ post.price | currency }} đ/tháng</div>
-            <div class="user-request--task-content--desc">
-              {{post.title}}
-            </div>
-            <div class="user-request--task-content--address">
-              {{post.description}}
-            </div>
-          </a-col>
-        </a-row>
-        <a-divider></a-divider>
+        <div @click="handleDetail(post.id)" style="cursor: pointer">
+          <a-row :gutter="20" class="user-request--task">
+            <a-col :lg="8">
+              <img v-lazy="renderImg(post.attactment[0])" />
+            </a-col>
+            <a-col :lg="16" class="user-request--task-content">
+              <div class="user-request--task-content--price">{{ post.price | thousand | currency }} đ/tháng</div>
+              <div class="user-request--task-content--desc">
+                {{post.title}}
+              </div>
+              <div class="user-request--task-content--address">
+                {{post.description}}
+              </div>
+            </a-col>
+          </a-row>
+          <a-divider></a-divider>
+        </div>
       </div>
     </div>
     <div class="user-request_loading" v-if="posts.length === 0">
@@ -67,6 +69,18 @@ export default {
       //   this.posts = this.posts.filter(post => post.id !== id)
       // })
       // .catch(() => this.$message.error('Không thể xoá tin !!! Thử lại sau.'))
+    },
+    handleHide(id) {
+      this.$confirm({
+        title: 'Bạn có chắc ẩn tin ?',
+        content: 'Tin của bạn sẽ được ẩn ngay lập tức.',
+        onOk() {
+          console.log('OK');
+        },
+        onCancel() {
+          console.log('Cancel');
+        }
+      });
     }
   },
   created() {

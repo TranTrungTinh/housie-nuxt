@@ -3,31 +3,31 @@
   <div class="container">
       <div class="home-welcome">
           <div class="home-welcome--title">
-              <typed></typed>
+              <Typed />
           </div>
           <div class="home-welcome--form">
               <div class="home-welcome--form__selected">
                   <div class="home-welcome--form__selected-tp">
                       <i class="fas fa-map-marker-alt"></i>
-                      <selected 
+                      <Selected 
                           :selects="getCities"
                           :firstSelected="true"
                           :onSelected="onSelectedCity"
                           :size="'large'"
                           :setSelected="address.city"
-                      ></selected>
+                      />
                   </div>
                   <div class="home-welcome--form__selected-top">
                       <span>Tôi đang tìm phòng tại:</span>
                       <div>
-                          <selected 
+                          <Selected 
                               :selects="getDistricts"
                               :firstSelected="true"
                               :onSelected="onSelectedDistrict"
                               :size="'large'"
                               :setSelected="address.district"
                               :styles="{color: '#FD3D76', fontSize: '26px'}"
-                          ></selected>
+                          />
                       </div>
                   </div>
                   <div class="home-welcome--form__selected-search" @click="handleSearch">
@@ -53,22 +53,22 @@
           <div class="container">
               <a-row type="flex" justify="space-between">
                   <a-col class="home-card-hire--item">
-                      <card-hire 
+                      <CardHire
                           :title="`Tạo tin cần thuê`"
                           :des="`Chỉ cần tạo tin, housie sẽ báo lại ngay khi có phòng phù hợp`"
                           :button="`Tạo ngay`"
                           link="/rent"
                           :type="0"
-                      ></card-hire>
+                      />
                   </a-col>
                   <a-col class="home-card-hire--item">
-                      <card-hire  
+                      <CardHire 
                           :title="`Đăng phòng cho thuê`"
                           :des="`Đăng phòng dễ dàng, tìm được người thuê nhanh chóng`"
                           :button="`Đăng ngay`"
                           link="/post"
                           :type="1"
-                      ></card-hire>
+                      />
                   </a-col>
               </a-row>
           </div>
@@ -81,7 +81,7 @@
               <div class="home-new-room--list">
                   <a-row :gutter="16" v-if="newPosts.length > 0">
                       <a-col :xs="24" :sm="12" :md="12" :lg="8" :xl="6" v-for="(item, i) in newPosts" :key="i">
-                          <thumbnail 
+                          <Thumbnail 
                               :id="item.id"
                               :title="item.title"
                               :image="item.attactment[0]"
@@ -89,7 +89,7 @@
                               :address="item.description"
                               :price="item.price"
                               tagName="NEW"
-                          ></thumbnail>
+                          />
                       </a-col>
                   </a-row>
                   <div class="home-new-room--list_loading" v-else>
@@ -113,7 +113,7 @@
               <div class="home-new-room--list">
                   <a-row :gutter="16" v-if="apartments.length > 0">
                       <a-col :xs="24" :sm="12" :md="12" :lg="8" :xl="6" v-for="(item, i) in apartments" :key="i">
-                          <thumbnail 
+                          <Thumbnail 
                               :id="item.id"
                               :title="item.title"
                               :image="item.attactment[0]"
@@ -121,7 +121,7 @@
                               :address="item.description"
                               :price="item.price"
                               tagName="HOT"
-                          ></thumbnail>
+                          />
                       </a-col>
                   </a-row>
                   <div class="home-new-room--list_loading" v-else>

@@ -50,14 +50,14 @@
                 showIcon 
             />
         </div>
-        <div class="fourth-step--item">
+        <!-- <div class="fourth-step--item">
           <div class="fourth-step--item__sub--title">Chọn tiêu đề gợi ý</div>
           <a-tag class="fourth-step--item__sub--tag" color="orange"
             @click="fourthStep.title = `${referTitle}2`"
           >
             {{referTitle}}<sup>2</sup>
           </a-tag>
-        </div>
+        </div> -->
         <div class="fourth-step--item">
           <a-alert
             message="Nên nhập Tiêu đề bằng tiếng Việt có dấu."
@@ -137,13 +137,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      postReferTitle: 'post/postReferTitle',
+      // postReferTitle: 'post/postReferTitle',
       postFourthStep: 'post/postFourthStep'
     }),
-    referTitle() {
-      const { area, district, square } = this.postReferTitle;
-      return `${area} ${district} ${square}m`;
-    }
+    // referTitle() {
+    //   const { area, district, square } = this.postReferTitle;
+    //   return `${area} ${district} ${square}m`;
+    // }
   },
   methods: {
     handleCancel () {
@@ -164,10 +164,6 @@ export default {
       return size;
     },
     handleUpload({ data, file, onError, onProgress, onSuccess }) {
-      // onProgress({ percent: 10 })
-      // setTimeout(() => onProgress({ percent: 20 }), 500);
-      // setTimeout(() => onProgress({ percent: 50 }), 1000);
-      // setTimeout(() => onProgress({ percent: 80 }), 1500);
       setTimeout(() => onProgress({ percent: 100 }), 50);
       setTimeout(() => onSuccess(), 100);
     },

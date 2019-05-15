@@ -33,7 +33,7 @@
     </div>
     <div class="user-request_loading" v-if="rents.length === 0">
       <i class="fal fa-spinner fa-spin" v-if="loading"></i>
-      <p v-else>Không có dữ liệu</p>
+      <p v-else>Chưa hổ trợ tính năng này</p>
     </div>
   </div>
 </template>
@@ -83,11 +83,11 @@ export default {
     }
   },
   created() {
-    this.loading = true;
-    this.getRentByOwner().then(result => {
-      this.loading = false;
-      this.rents = result;
-    })
+    // this.loading = true;
+    // this.getRentByOwner().then(result => {
+    //   this.loading = false;
+    //   this.rents = result;
+    // })
   },
   head() {
     return {
