@@ -38,7 +38,8 @@ module.exports = {
     '~styles/global.css',
     'ant-design-vue/dist/antd.min.css',
     'vue-loading-overlay/dist/vue-loading.css',
-    'swiper/dist/css/swiper.css'
+    'swiper/dist/css/swiper.css',
+    'vue-simple-suggest/dist/styles.css'
   ],
 
   /*

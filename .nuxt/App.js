@@ -9,6 +9,8 @@ import '../node_modules/vue-loading-overlay/dist/vue-loading.css'
 
 import '../node_modules/swiper/dist/css/swiper.css'
 
+import '../node_modules/vue-simple-suggest/dist/styles.css'
+
 import _6f6c098b from '../layouts/default.vue'
 
 const layouts = { "_default": _6f6c098b }
