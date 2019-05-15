@@ -12,6 +12,7 @@ const UserFindHouse = () => import('@/components/user/UserFindHouse.vue');
 const UserForRent = () => import('@/components/user/UserForRent.vue');
 
 export default {
+  middleware: ["auth"],
   components: { UserInfo, UserRequest, UserFindHouse, UserForRent },
   mixins: [initLoadProgress, currentUser],
   data () {

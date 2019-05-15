@@ -23,35 +23,36 @@ import { RoomInfo, RoomStatus } from '@/components/task';
 import { storage } from '@/helpers';
 
 export default {
-    head() {
-        return {
-            title: 'Kết quả xem phòng - Housie',
-            meta: [
-                // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-                { hid: 'description', name: 'description', content: 'My custom description' }
-            ]
-        }
-    },
-    components: { RoomInfo, RoomStatus },
-    data() {
-        return {
-            taskDetail: {},
-            taskResult: {}
-        }
-    },
-    computed: {
-        isTask() {
-            return this.taskDetail && this.taskDetail.id;
-        }
-    },
-    mounted() {
-        const loader = this.$loading.show();
-        setTimeout(() => {
-            this.taskDetail = storage.getItem('task-detail');
-            if(this.taskDetail.result) this.taskResult = { ...this.taskDetail.result }
-            loader.hide();
-        }, 500)
-    }
+  middleware: ["auth"],
+  head() {
+      return {
+          title: 'Kết quả xem phòng - Housie',
+          meta: [
+              // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+              { hid: 'description', name: 'description', content: 'My custom description' }
+          ]
+      }
+  },
+  components: { RoomInfo, RoomStatus },
+  data() {
+      return {
+          taskDetail: {},
+          taskResult: {}
+      }
+  },
+  computed: {
+      isTask() {
+          return this.taskDetail && this.taskDetail.id;
+      }
+  },
+  mounted() {
+      const loader = this.$loading.show();
+      setTimeout(() => {
+          this.taskDetail = storage.getItem('task-detail');
+          if(this.taskDetail.result) this.taskResult = { ...this.taskDetail.result }
+          loader.hide();
+      }, 500)
+  }
 }
 </script>
 <style lang="scss" scoped>

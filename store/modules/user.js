@@ -51,7 +51,7 @@ const actions = {
       await authApi.logout(token);
       localStorage.removeItem('auth');
       localStorage.removeItem('authFb');
-      commit('logout');
+      commit('reset');
     } catch (error) {
       throw new Error('CAN_NOT_LOGOUT');      
     }
@@ -146,9 +146,6 @@ const mutations = {
   },
   loginFail(state, error) {
     Object.assign(state, { error })
-  },
-  logout(state) {
-    Object.assign(state, { user: {} })
   }
 }
 

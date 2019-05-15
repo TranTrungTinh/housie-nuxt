@@ -6,11 +6,20 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Housie',
+    title: 'Tìm phòng thật dễ với Housie',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'My ace Nuxt.js project' }
+      // Name of web application (only should be used if the website is used as an app)
+      { name: "application-name", content: "Housie"},
+      // Control the behavior of search engine crawling and indexing
+      { name: "robots", content: "index,follow"},
+      { name: "googlebot", content: "index,follow"},
+      // Tells Google not to show the sitelinks search box
+      { name: 'google', content: 'nositelinkssearchbox'},
+      // Tells Google not to provide a translation for this document
+      { name: 'google', content: 'notranslate'},
+      { hid: 'description', name: 'description', content: 'Tìm, thuê phòng thật dễ với Housie' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -50,8 +59,7 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-  ],
+  modules: [],
 
   /*
   ** Build configuration

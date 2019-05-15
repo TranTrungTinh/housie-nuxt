@@ -14,7 +14,7 @@ import _6f6c098b from '../layouts/default.vue'
 const layouts = { "_default": _6f6c098b }
 
 export default {
-  head: {"title":"Housie","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"My ace Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"\u002Fcss\u002Fall.min.css"}],"style":[],"script":[]},
+  head: {"title":"Tìm phòng thật dễ với Housie","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"application-name","content":"Housie"},{"name":"robots","content":"index,follow"},{"name":"googlebot","content":"index,follow"},{"name":"google","content":"nositelinkssearchbox"},{"name":"google","content":"notranslate"},{"hid":"description","name":"description","content":"Tìm, thuê phòng thật dễ với Housie"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"\u002Fcss\u002Fall.min.css"}],"style":[],"script":[]},
 
   render(h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })

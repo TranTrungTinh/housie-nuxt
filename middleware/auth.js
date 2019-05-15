@@ -1,6 +1,6 @@
-export default function(context) {
-  console.log("[Middleware] Just Auth User");
-  if (!context.store.getters['user/isAuthenticated']) {
-    context.redirect("/");
+export default function({ store, redirect }) {
+  console.log("[Middleware] Must be sign in User");
+  if (!store.getters['user/isAuthenticated']) {
+    return redirect("/");
   }
 }
