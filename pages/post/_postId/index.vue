@@ -99,9 +99,9 @@ export default {
                 attactment: this.postDetail.attactment
             }
             storage.saveItem('room-detail', roomDetail);
-            const existing = localStorage.getItem('confirm-task');
+            const existing = window.localStorage.getItem('confirm-task');
             if(!existing) return this.$refs.helperModal.showModal();
-            this.$router.push({ path: `${this.$route.path}/request` });
+            this.$router.push({ path: `${this.$route.path}/task` });
         },
         handleScroll() {
             if(window.scrollY < 527) {
@@ -116,7 +116,7 @@ export default {
         }
     },
     created() {
-        this.postId = this.$route.params.id || '1';
+        this.postId = this.$route.params.postId || '1';
     },
     mounted() {
         this.loadDetail();

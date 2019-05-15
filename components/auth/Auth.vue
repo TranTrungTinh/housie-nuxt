@@ -48,12 +48,9 @@
     </div>
 </template>
 <script>
-import GoogleLogin from 'vue-google-login';
-import VFacebookLogin from 'vue-facebook-login-component'
 import { mapActions } from 'vuex';
 
 export default {
-    components: { GoogleLogin, VFacebookLogin },
     props: {
         enableTab: { type: Function, required: true, default: () => {} }
     },

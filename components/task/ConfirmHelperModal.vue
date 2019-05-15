@@ -37,7 +37,7 @@ export default {
                 localStorage.removeItem('confirm-task');
                 localStorage.setItem('confirm-task', this.checked);
             };
-            this.$router.push({ path: `${this.$route.path}/request` });
+            this.$router.push({ path: `${this.$route.path}/task` });
         }
     }
 }

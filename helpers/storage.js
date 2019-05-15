@@ -1,13 +1,17 @@
 export const saveItem = (key, data) => {
-    const existed = localStorage.getItem(key);
-    if(existed) {
-        localStorage.removeItem(key)
+    if (process.client) {
+        const existed = window.localStorage.getItem(key);
+        if(existed) {
+            window.localStorage.removeItem(key)
+        }
+        window.localStorage.setItem(key, JSON.stringify(data));
     }
-    localStorage.setItem(key, JSON.stringify(data));
 }
 
 export const getItem = (key) => {
-    const data = localStorage.getItem(key);
-    if(!data) return {};
-    return JSON.parse(data);
+    if (process.client) {
+        const data = window.localStorage.getItem(key);
+        if(!data) return {};
+        return JSON.parse(data);
+    }
 }

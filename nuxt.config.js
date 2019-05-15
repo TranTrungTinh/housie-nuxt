@@ -37,11 +37,11 @@ module.exports = {
   */
   plugins: [
     { src: '~plugins/components/core-component.js' },
-    { src: '~plugins/components/vue-typer.js', ssr: false},
-    { src: '~plugins/components/vue-swiper.js', ssr: false },
-    { src: "~plugins/components/vue-google-map.js", ssr: true },
     { src: '~plugins/components/vue-lazyload.js' },
     { src: '~plugins/components/vue-loading.js'},
+    { src: '~plugins/components/vue-thirdComponent.js', ssr: false},
+    { src: '~plugins/components/vue-swiper.js', ssr: false },
+    { src: "~plugins/components/vue-google-map.js", ssr: true },
 
     { src: '~plugins/filters/currency.js'},
     { src: '~plugins/filters/fromNow.js'},

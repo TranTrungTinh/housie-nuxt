@@ -3,7 +3,7 @@ import Meta from 'vue-meta'
 import { createRouter } from './router.js'
 import NoSsr from './components/no-ssr.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from './components/nuxt-error.vue'
+import NuxtError from '../layouts/error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -12,7 +12,7 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_corecomponent_30682834 from 'nuxt_plugin_corecomponent_30682834' // Source: ../plugins/components/core-component.js (mode: 'all')
-import nuxt_plugin_vuetyper_4d6150f0 from 'nuxt_plugin_vuetyper_4d6150f0' // Source: ../plugins/components/vue-typer.js (mode: 'client')
+import nuxt_plugin_vuethirdComponent_0fdec7f8 from 'nuxt_plugin_vuethirdComponent_0fdec7f8' // Source: ../plugins/components/vue-thirdComponent.js (mode: 'client')
 import nuxt_plugin_vueswiper_e71552d4 from 'nuxt_plugin_vueswiper_e71552d4' // Source: ../plugins/components/vue-swiper.js (mode: 'client')
 import nuxt_plugin_vuegooglemap_200fe5c6 from 'nuxt_plugin_vuegooglemap_200fe5c6' // Source: ../plugins/components/vue-google-map.js (mode: 'all')
 import nuxt_plugin_vuelazyload_235773b4 from 'nuxt_plugin_vuelazyload_235773b4' // Source: ../plugins/components/vue-lazyload.js (mode: 'all')
@@ -162,8 +162,8 @@ async function createApp(ssrContext) {
     await nuxt_plugin_corecomponent_30682834(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_vuetyper_4d6150f0 === 'function') {
-    await nuxt_plugin_vuetyper_4d6150f0(app.context, inject)
+  if (process.client && typeof nuxt_plugin_vuethirdComponent_0fdec7f8 === 'function') {
+    await nuxt_plugin_vuethirdComponent_0fdec7f8(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_vueswiper_e71552d4 === 'function') {
