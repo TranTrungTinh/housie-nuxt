@@ -1,0 +1,73 @@
+.ant-menu-item-selected {
+    color: #FD3D76;
+    background-color: #FFFFFF !important;
+}
+.container {
+    padding: 3%;
+}
+.user {
+    position: relative;
+    background: #f9f9f9;
+    min-height: 100vh;
+
+    &-menu {
+        background: #FFFFFF;
+        border-radius: 8px;
+        // box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.32);
+
+        & hr {
+        width: 80%;
+        border: solid 1px #EFEFF4;
+        }
+
+        &--avatar {
+            text-align: center;
+            margin-top: 48px;
+
+            &__icon-edit {
+                position: absolute;
+                cursor: pointer;
+                top: 30%;
+                right: 29%;
+            }
+            & h2 {
+                font-weight: bold;
+                margin: 20px;
+            }
+        }
+
+        &--nav {
+            border: none !important;
+            &--item {
+                &:hover {
+                    color: #FD3D76;
+                }
+                &:active {
+                    color: #FD3D76;
+                }
+
+                & i {
+                    padding-right: 10px;
+                }
+            }   
+        }
+
+        &-content {
+            background: #FFFFFF;
+            border-radius:  8px;
+        }
+    }
+
+    &_loading {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        
+        font-size: 50px;
+        font-weight: 500;
+        text-align: center;
+        line-height: 50px;
+        color: #FD3D76;
+    }
+}

@@ -119,9 +119,7 @@ export default {
         this.postId = this.$route.params.id || '1';
     },
     mounted() {
-        this.$nextTick(() => {
-            this.loadDetail();
-        })
+        this.loadDetail();
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll);

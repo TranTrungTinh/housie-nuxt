@@ -83,13 +83,16 @@ export default {
     }
   },
   created() {
-    document.title = 'Tin cần thuê - Housie';
     this.loading = true;
-    this.getRentByOwner()
-    .then(result => {
+    this.getRentByOwner().then(result => {
       this.loading = false;
       this.rents = result;
     })
+  },
+  head() {
+    return {
+      title: 'Tin cần thuê - Housie'
+    }
   }
 }
 </script>

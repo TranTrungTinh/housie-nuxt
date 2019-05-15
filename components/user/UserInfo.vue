@@ -124,8 +124,10 @@ export default {
       });
     }
   },
-  created() {
-    document.title = 'Hồ sơ cá nhân - Housie';
+  head() {
+    return {
+      title: 'Hồ sơ cá nhân - Housie'
+    }
   }
 }
 </script>

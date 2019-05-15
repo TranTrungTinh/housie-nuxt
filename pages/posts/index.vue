@@ -39,6 +39,11 @@ const sortOption = () => ([
     { key: 'price.desc', value: 'Giá từ cao đến thấp.' }
 ])
 export default {
+    head() {
+        return {
+            title: 'Tìm phòng với Housie'
+        }
+    },
     components: { Type, Range, Utilities, Thumbnail, Selected },
     mixins: [initLoadProgress],
     data () {
@@ -216,10 +221,8 @@ export default {
             Object.assign(this.filteredOptions, { min: 0, max: 0 })
         }
     },
-    created() {
+    mounted() {
         this.detectParams(this.$route.query);
     }
 }
 </script>
-
-

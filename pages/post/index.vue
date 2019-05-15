@@ -6,10 +6,12 @@ import { FirstStep, SecondStep, ThirdStep, FourthStep, ConfirmStep } from '@/com
 import { initLoadProgress } from '@/mixins';
 
 export default {
-    middleware: ["auth"],
-    head: {
-        title: 'Đăng phòng cho thuê - Housie'
+    head() {
+        return {
+            title: 'Đăng phòng cho thuê - Housie'
+        }
     },
+    middleware: ["auth"],
     components: { FirstStep, SecondStep, ThirdStep, FourthStep, ConfirmStep },
     mixins: [initLoadProgress],
     data() {

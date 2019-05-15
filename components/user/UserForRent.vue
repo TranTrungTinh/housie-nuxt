@@ -61,6 +61,7 @@ export default {
       this.$router.push({ path: `/post/${id}` })
     },
     handleDelete(id) {
+      this.$message.info('Chưa hổ trợ xoá tin đăng.')
       // this.deletePostById(id)
       // .then(() => {
       //   this.posts = this.posts.filter(post => post.id !== id)
@@ -69,13 +70,16 @@ export default {
     }
   },
   created() {
-    document.title = 'Phòng cho thuê - Housie';
     this.loading = true;
-    this.getPostsByOwner(this.idUser)
-    .then(data => {
+    this.getPostsByOwner(this.idUser).then(data => {
       this.posts = data;
       this.loading = false;
     })
+  },
+  head() {
+    return {
+      title: 'Phòng cho thuê - Housie'
+    }
   }
 }
 </script>

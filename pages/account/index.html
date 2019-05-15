@@ -1,0 +1,52 @@
+<section class="user">
+    <div class="container">
+        <a-row :gutter="20" v-if="isUser">
+            <a-col :xs="24" :lg="7" class="user-menu">
+                <div class="user-menu--avatar">
+                    <a-avatar :size="128" :src="renderAvatar" icon="user" />
+                    <a-upload 
+                        name="avatar" 
+                        accept=".png, .jpg, .jpeg"
+                        :customRequest="handleUploadAvatar"
+                        :fileList="files"
+                        @change="handleChange"
+                    >
+                        <img src="~@/assets/img/icon_edit.svg" class="user-menu--avatar__icon-edit" />
+                    </a-upload>
+                    <h2>{{ renderName }}</h2>
+                </div>
+                <hr />
+                <a-menu @click="switchMenu" :defaultSelectedKeys="[currentPage]" class="user-menu--nav">
+                    <a-menu-item :key="1" class="user-menu--nav--item">
+                        <i class="fas fa-user" />Thông tin tài khoản
+                    </a-menu-item>
+                    <a-menu-item :key="2" class="user-menu--nav--item">
+                        <i class="fas fa-house-damage"></i>Phòng nhờ xem giúp
+                    </a-menu-item>
+                    <a-menu-item :key="3" class="user-menu--nav--item">
+                        <i class="fas fa-home-lg-alt" />Tin cần thuê
+                    </a-menu-item>
+                    <a-menu-item :key="4" class="user-menu--nav--item">
+                        <i class="fas fa-home-heart" />Phòng cho thuê
+                    </a-menu-item>
+                </a-menu>
+            </a-col>
+            <a-col :xs="24" :lg="17">
+                <div class="user-menu-content">
+                    <div v-if="currentPage == 1">
+                        <UserInfo :user="currentUser" />
+                    </div>
+                    <div v-if="currentPage == 2">
+                        <UserRequest :idUser="currentUser.id" />
+                    </div>
+                    <div v-if="currentPage == 3">
+                        <UserFindHouse />
+                    </div>
+                    <div v-if="currentPage == 4">
+                        <UserForRent :idUser="currentUser.id" />
+                    </div>
+                </div>
+            </a-col>
+        </a-row>
+    </div>
+</section>

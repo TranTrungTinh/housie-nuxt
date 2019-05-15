@@ -65,13 +65,16 @@ export default {
     }
   },
   created() {
-    document.title = 'Phòng nhờ xem giúp - Housie';
     this.loading = true;
-    this.getMyTask(this.idUser)
-    .then(data => {
-      this.tasks = data;
-      this.loading = false;
+    this.getMyTask(this.idUser).then(data => {
+        this.tasks = data;
+        this.loading = false;
     });
+  },
+  head() {
+    return {
+      title: 'Phòng nhờ xem giúp - Housie'
+    }
   }
 }
 </script>
