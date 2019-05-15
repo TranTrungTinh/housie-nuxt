@@ -1,7 +1,7 @@
 <template>
     <div class="prefer">
         <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper">
+            <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="(item, i) in posts" :key="i">
                     <div class="prefer--item">
                         <Thumbnail 
@@ -18,8 +18,8 @@
             <div class="prefer--item_loading" v-if="posts.length === 0">
                 <i class="fal fa-spinner fa-spin"></i>
             </div>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
 </template>
@@ -93,10 +93,6 @@ export default {
     }
 }
 .swiper {
-    // display: flex;
-    // align-items: center;
-    // justify-content: space-around;
-
     &-container {
         max-height: 500px;
     }
@@ -112,9 +108,11 @@ export default {
         }
     }
 
-    // &-slide {
-        
-    // }
+    &-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 </style>
 

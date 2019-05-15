@@ -1,30 +1,5 @@
 import { commentApi } from '@/api';
 
-// const initialState = () => {
-//     return {
-//     }
-// }
-  
-// const state = initialState();
-
-// const getters = {
-//     // step: state => {
-//     //     return state;
-//     // },
-//     // currentHeader: state => {
-//     //     return state.isStepHeader;
-//     // }
-// }
-
-// const mutations = {
-//     setStep (state, step) {
-//         Object.assign(state, { step })
-//     },
-//     reset(state) {
-//         Object.assign(state, initialState())
-//     }
-// }
-
 const actions = {
     async getCommentsByPostId(_, id) {
         try {

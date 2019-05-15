@@ -55,7 +55,7 @@ import { mapActions } from 'vuex';
 export default {
     components: { GoogleLogin, VFacebookLogin },
     props: {
-        enableTab: { type: Function, required: true }
+        enableTab: { type: Function, required: true, default: () => {} }
     },
     data () {
         return {

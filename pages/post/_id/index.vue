@@ -70,11 +70,11 @@ export default {
             getPostsByFiltered: 'post/getPostsByFiltered',
             getPostById: 'post/getPostById'
         }),
-        loadDetail(id) {
+        loadDetail() {
             const loader = this.$loading.show();
 
             this.postDetail = {};
-            this.getPostById(id)
+            this.getPostById(this.postId)
             .then(data => {
                 this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
                 this.postDetail = data;
@@ -115,10 +115,12 @@ export default {
             this.affix = 2;
         }
     },
+    created() {
+        this.postId = this.$route.params.id || '1';
+    },
     mounted() {
         this.$nextTick(() => {
-            this.postId = this.$route.params.id || '1';
-            this.loadDetail(this.postId);
+            this.loadDetail();
         })
     },
     beforeMount() {

@@ -1,45 +1,28 @@
 <template>
     <div class="preview">
-      <!-- <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
-        <swiper-slide
-          v-for="(img, i) in attactment" :key="i" 
-          v-lazy:background-image="renderImg(img)"
-        >
-        </swiper-slide>
-        <div class="swiper-button swiper-button-next swiper-button-white" slot="button-next"></div>
-        <div class="swiper-button swiper-button-prev swiper-button-white" slot="button-prev"></div>
-      </swiper>
-      
-      <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
-        <swiper-slide
-          v-for="(img, i) in attactment" :key="i" 
-          v-lazy:background-image="renderImg(img)"
-        >
-        </swiper-slide>
-      </swiper> -->
-      <div v-swiper:mySwiper="swiperOptionTop" class="gallery-top" ref="swiperTop">
+      <div v-swiper:swiperTop="swiperOptionTop" class="gallery-top">
+        <div class="swiper-wrapper">
           <div class="swiper-slide"
             v-for="(img, i) in attactment" :key="i" 
             v-lazy:background-image="renderImg(img)"
           >
+          </div>
         </div>
-        <!-- <div class="swiper-button swiper-button-next swiper-button-white"></div>
-        <div class="swiper-button swiper-button-prev swiper-button-white"></div> -->
+        <div class="swiper-button swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button swiper-button-prev swiper-button-white"></div>
     </div>
-    <div v-swiper:mySwiper="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
+    <div v-swiper:swiperThumbs="swiperOptionThumbs" class="gallery-thumbs">
+      <div class="swiper-wrapper">
         <div class="swiper-slide"
           v-for="(img, i) in attactment" :key="i" 
           v-lazy:background-image="renderImg(img)"
         >
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-// if (process.browser) {
-//   const { swiper, swiperSlide } = require('vue-awesome-swiper');
-// }
-// const { swiper, swiperSlide } = require('vue-awesome-swiper');
 import { format } from '@/helpers';
 
 export default {
@@ -65,10 +48,6 @@ export default {
         slidesPerView: 'auto',
         touchRatio: 0.2,
         slideToClickedSlide: true
-      },
-      autoplay: { 
-        delay: 2500,
-        disableOnInteraction: false
       }
     }
   },
@@ -78,12 +57,12 @@ export default {
     }
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   let swiperTop = this.$refs.swiperTop.swiper
-    //   let swiperThumbs = this.$refs.swiperThumbs.swiper
-    //   swiperTop.controller.control = swiperThumbs
-    //   swiperThumbs.controller.control = swiperTop
-    // });
+    this.$nextTick(() => {
+      const swiperTop = this.swiperTop
+      const swiperThumbs = this.swiperThumbs
+      swiperTop.controller.control = swiperThumbs
+      swiperThumbs.controller.control = swiperTop
+    });
   }
 }
 </script>
@@ -105,9 +84,11 @@ export default {
 .swiper-slide {
   background-position: center;
   background-size: contain;
-  // background-color: #f2f2f4;
   outline: none;
   background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .gallery-top {
   height: 80% !important;
