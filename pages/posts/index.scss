@@ -37,16 +37,28 @@
                 margin-bottom: 10px;
                 overflow: hidden;
 
-                &--radio {
-                    display: block;
-                    margin: 5px 0;
+                &--utils {
+                    margin: 5px 0 10px 0;
+                    & span:first-child {
+                        font-size: 15px;
+                        font-weight: 500;
+                    }
+
+                    & span:not(:first-child) {
+                        font-size: 17px;
+                        font-weight: 400;
+                        padding: 0 10px;
+                        color: #3E74FF;
+                    }
+
+                    & i {
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
                 }
                 
                 &--price {
                     margin: 10px 0;
-                    padding: 5px 10px;
-                    border: dashed 1px #666;
-                    border-radius: 8px;
 
                     &--show {
                         display: flex;
@@ -156,4 +168,7 @@
 }
 .box {
     width: 100%;
+}
+.mg-small {
+    margin: 20px 0;
 }

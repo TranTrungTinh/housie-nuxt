@@ -14,41 +14,36 @@
                             <Type :onChoose="onRoomType" ref="type" />
                         </a-collapse-panel>
                         <a-collapse-panel header="Mức giá" key="2" class="posts-filter--body__item">
-                            <a-radio-group v-model="value" class="box">
-                                <a-radio class="posts-filter--body__item--radio" :value="1">Chọn khoảng giá</a-radio>
-                                <Range :onChange="onRangePrice" ref="range" v-show="value === 1" />
-                                <a-radio class="posts-filter--body__item--radio" :value="2">Định mức giá</a-radio>
-                                <div class="posts-filter--body__item--price" v-show="value === 2">
-                                    <div class="posts-filter--body__item--price--show">
-                                        <span>{{ filtered.priceRange.min | currency }} đ</span>
-                                        <span>-</span>
-                                        <span>{{ filtered.priceRange.max | currency }} đ</span>
-                                    </div>
-                                    <div class="posts-filter--body__item--price--input">
-                                        <span>Giá tối thiểu</span>
-                                        <a-input 
-                                            size="large" 
-                                            type="text" 
-                                            addonAfter="đ" 
-                                            placeholder="Mức giá tối thiểu"
-                                            min="100000"
-                                            v-model="filtered.priceRange.min"
-                                        />
-                                    </div>
-                                    <div class="posts-filter--body__item--price--input">
-                                        <span>Giá tối đa</span>
-                                        <a-input 
-                                            size="large" 
-                                            type="number" 
-                                            addonAfter="đ" 
-                                            placeholder="Mức giá tối đa"
-                                            min="100000"
-                                            max="30000000000"
-                                            v-model="filtered.priceRange.max"
-                                        />
-                                    </div>
+                            <div class="posts-filter--body__item--price">
+                                <div class="posts-filter--body__item--price--show">
+                                    <span>{{ filtered.priceRange.min | currency }} đ</span>
+                                    <span>-</span>
+                                    <span>{{ filtered.priceRange.max | currency }} đ</span>
                                 </div>
-                            </a-radio-group>
+                                <div class="posts-filter--body__item--price--input">
+                                    <span>Giá tối thiểu</span>
+                                    <a-input 
+                                        size="large" 
+                                        type="text" 
+                                        addonAfter="đ" 
+                                        placeholder="Mức giá tối thiểu"
+                                        min="100000"
+                                        v-model="filtered.priceRange.min"
+                                    />
+                                </div>
+                                <div class="posts-filter--body__item--price--input">
+                                    <span>Giá tối đa</span>
+                                    <a-input 
+                                        size="large" 
+                                        type="number" 
+                                        addonAfter="đ" 
+                                        placeholder="Mức giá tối đa"
+                                        min="100000"
+                                        max="30000000000"
+                                        v-model="filtered.priceRange.max"
+                                    />
+                                </div>
+                            </div>
                         </a-collapse-panel>
                         <a-collapse-panel header="Khu vực" key="3" class="posts-filter--body__item">
                             <Selected 
@@ -60,6 +55,25 @@
                             />
                         </a-collapse-panel>
                         <a-collapse-panel header="Tiện ích" key="4" class="posts-filter--body__item">
+                            <div class="posts-filter--body__item--utils">
+                                <a-row class="mg-small" type="flex" justify="space-between">
+                                    <span>Số giường</span>
+                                    <div type="flex" justify="space-between">
+                                        <i class="fas fa-minus-circle"></i>
+                                        <span>{{ filtered.beds }}</span>
+                                        <i class="fas fa-plus-circle" @click="filtered.beds++" />
+                                    </div>
+                                </a-row>
+                                <a-row class="mg-small" type="flex" justify="space-between">
+                                    <span>Số phòng tắm</span>
+                                    <div type="flex" justify="space-between">
+                                        <i class="fas fa-minus-circle"></i>
+                                        <span>{{ filtered.baths }}</span>
+                                        <i class="fas fa-plus-circle" @click="filtered.baths++" />
+                                    </div>
+                                </a-row>
+                            </div>
+                            <a-divider></a-divider>
                             <a-row :gutter="16">
                                 <a-col :xs="12" :sm="8" :md="24" :xl="12" v-for="item in facilities" :key="item.id">
                                     <Utilities 
@@ -138,7 +152,7 @@
                             />
                         </div>
                     </a-list>
-                    <div class="posts-body--content_loading" v-else>
+                    <div class="posts-body--content_loading" v-if="!loading && filteredPosts.length === 0">
                         <img src="~@/assets/img/not-found.svg" alt="Image not found" />
                         <p>Housie không tìm thấy kết quả phòng phù hợp !!!</p>
                     </div>
@@ -146,4 +160,5 @@
             </div>
         </a-col>
     </a-row>
+    <Loading :isLoading="loading" />
 </section>

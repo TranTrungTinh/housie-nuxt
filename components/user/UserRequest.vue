@@ -66,8 +66,8 @@ export default {
   },
   created() {
     this.loading = true;
-    this.getMyTask(this.idUser).then(data => {
-        this.tasks = data;
+    this.getMyTask(this.idUser).then(result => {
+        this.tasks = result.data;
         this.loading = false;
     });
   },

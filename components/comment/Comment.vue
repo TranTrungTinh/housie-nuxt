@@ -136,7 +136,7 @@ export default {
     }
   },
   created() {
-    this.getCommentsByPostId(this.postId).then(data => this.comments = data);
+    this.getCommentsByPostId(this.postId).then(result => this.comments = result.data);
   },
   updated() {
     this.scrollToEnd()
@@ -187,20 +187,11 @@ export default {
           text-align: center;
           box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.32);
           cursor: pointer;
-          opacity: 0.5;
 
           & > span {
             display: block;
             font-weight: 400;
             padding: 5px 0;
-
-            // &:first-child {
-            //   border-radius: 8px 8px 0 0;
-            // }
-            // &:last-child {
-            //   // border-radius: 0 0 8px 8px;
-            //   borra
-            // }
             &:hover {
               background: #FD3D76;
               border-radius: 8px;
@@ -208,9 +199,6 @@ export default {
             }
           }
 
-          &:hover {
-            opacity: 1;
-          }
         }
       } 
     }

@@ -85,8 +85,8 @@ export default {
   },
   created() {
     this.loading = true;
-    this.getPostsByOwner(this.idUser).then(data => {
-      this.posts = data;
+    this.getPostsByOwner(this.idUser).then(result => {
+      this.posts = result.data;
       this.loading = false;
     })
   },
@@ -144,7 +144,6 @@ export default {
         text-align: center;
         box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.32);
         cursor: pointer;
-        opacity: 0.5;
 
         & > span {
           display: block;
@@ -160,10 +159,6 @@ export default {
             background: #FD3D76;
             color: #fff;
           }
-        }
-
-        &:hover {
-          opacity: 1;
         }
       }
     } 

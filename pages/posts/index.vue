@@ -2,7 +2,8 @@
 <style src="./index.scss" lang="scss" scoped></style>
 
 <script>
-import { Type, Range } from '@/components/filtered';
+import { Type } from '@/components/filtered';
+import { Loading } from '@/components/loading';
 import { Selected } from '@/components/selected';
 import { Utilities } from '@/components/utils';
 import { Thumbnail } from '@/components/thumbnail';
@@ -21,7 +22,9 @@ const initFitered = () => ({
     priceRange: {
         min: 100000,
         max: 30000000000
-    }
+    },
+    beds: 0,
+    baths: 0
 });
 const blankFiltered = () => ({
     keywords: '',
@@ -31,6 +34,8 @@ const blankFiltered = () => ({
     typeName: '',
     min: 0,
     max: 0,
+    beds: 0,
+    baths: 0,
     facilities: []
 });
 const sortOption = () => ([
@@ -44,7 +49,7 @@ export default {
             title: 'Tìm phòng với Housie'
         }
     },
-    components: { Type, Range, Utilities, Thumbnail, Selected },
+    components: { Type, Utilities, Thumbnail, Selected, Loading },
     mixins: [initLoadProgress],
     data () {
       return {
@@ -62,7 +67,8 @@ export default {
         sortSelected: {
             code: 'new',
             data: 'Mới nhất.'
-        }
+        },
+        loading: false
       }
     },
     watch: {
@@ -83,10 +89,10 @@ export default {
         filteredPosts() {
             const { posts } = this;
             const { code } = this.sortSelected;
-            return this.posts;
-            // if(code.includes('price.asc')) return posts.sort((a, b) => a.price - b.price);
-            // if(code.includes('price.desc')) return posts.sort((a, b) => b.price - a.price);
-            // return posts.sort((a, b) => a.created.localeCompare(b.created));
+            // return this.posts;
+            if(code.includes('price.asc')) return posts.sort((a, b) => a.price - b.price);
+            if(code.includes('price.desc')) return posts.sort((a, b) => b.price - a.price);
+            return posts.sort((a, b) => a.created.localeCompare(b.created));
         }
     },
     methods: {
@@ -94,7 +100,7 @@ export default {
             getPostsByFiltered: 'post/getPostsByFiltered' 
         }),
         loadPosts() {
-            const loader = this.$loading.show();
+            this.loading = true;
             const payload = {
                 ...this.filteredOptions, 
                 current: this.pagination.current,
@@ -104,8 +110,9 @@ export default {
             .then(post => {
                 Object.assign(this.pagination, {total: post.total * post.limit});
                 this.posts = post.data;
-                loader.hide();
-            });
+                this.loading = false;
+            })
+            .catch(() => this.loading = false)
         },
         onChoose(id) {
             this.facilities = this.facilities.map(item => {
@@ -234,7 +241,7 @@ export default {
             Object.assign(this.filteredOptions, { min: 0, max: 0 })
         }
     },
-    mounted() {
+    created() {
         this.detectParams(this.$route.query);
     }
 }
