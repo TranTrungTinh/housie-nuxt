@@ -1,6 +1,6 @@
 <section class="user">
     <div class="container">
-        <a-row :gutter="20" v-if="isUser">
+        <a-row :gutter="20">
             <a-col :xs="24" :lg="7" class="user-menu">
                 <div class="user-menu--avatar">
                     <a-avatar :size="128" :src="renderAvatar" icon="user" />
@@ -49,4 +49,5 @@
             </a-col>
         </a-row>
     </div>
+    <Loading :isLoading="loading" />
 </section>

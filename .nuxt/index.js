@@ -13,7 +13,6 @@ import { createStore } from './store.js'
 
 import nuxt_plugin_corecomponent_30682834 from 'nuxt_plugin_corecomponent_30682834' // Source: ../plugins/components/core-component.js (mode: 'all')
 import nuxt_plugin_vuelazyload_235773b4 from 'nuxt_plugin_vuelazyload_235773b4' // Source: ../plugins/components/vue-lazyload.js (mode: 'all')
-import nuxt_plugin_vueloading_02206bf8 from 'nuxt_plugin_vueloading_02206bf8' // Source: ../plugins/components/vue-loading.js (mode: 'all')
 import nuxt_plugin_vuethirdComponent_0fdec7f8 from 'nuxt_plugin_vuethirdComponent_0fdec7f8' // Source: ../plugins/components/vue-thirdComponent.js (mode: 'client')
 import nuxt_plugin_vueswiper_e71552d4 from 'nuxt_plugin_vueswiper_e71552d4' // Source: ../plugins/components/vue-swiper.js (mode: 'client')
 import nuxt_plugin_vuegooglemap_200fe5c6 from 'nuxt_plugin_vuegooglemap_200fe5c6' // Source: ../plugins/components/vue-google-map.js (mode: 'all')
@@ -164,10 +163,6 @@ async function createApp(ssrContext) {
 
   if (typeof nuxt_plugin_vuelazyload_235773b4 === 'function') {
     await nuxt_plugin_vuelazyload_235773b4(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_vueloading_02206bf8 === 'function') {
-    await nuxt_plugin_vueloading_02206bf8(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_vuethirdComponent_0fdec7f8 === 'function') {

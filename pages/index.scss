@@ -225,11 +225,12 @@
         &--list {
 
             &_loading {
+                margin-top: 20px;
                 height: 100px;
-                font-size: 50px;
+                font-size: 80px;
                 font-weight: 500;
                 text-align: center;
-                line-height: 50px;
+                line-height: 80px;
                 color: #FD3D76;
             }
         }

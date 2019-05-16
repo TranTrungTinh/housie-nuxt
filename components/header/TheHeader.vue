@@ -46,10 +46,8 @@ export default {
     },
     mounted() {
         this.loading = true;
-        this.firstLoading().then(() => {
-            EventBus.$emit('user-first-loading');
-            this.loading = false;
-        })
+        this.firstLoading()
+        .then(() =>  this.loading = false)
         .catch(() => this.loading = false)
     },
     destroyed() {

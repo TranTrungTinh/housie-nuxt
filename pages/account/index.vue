@@ -4,6 +4,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { initLoadProgress, currentUser } from '@/mixins';
+import { Loading } from '@/components/loading';
 import { UserInfo } from '@/components/user';
 import { EventBus } from '@/helpers/event-bus';
 import { format } from '@/helpers';
@@ -13,10 +14,11 @@ const UserForRent = () => import('@/components/user/UserForRent.vue');
 
 export default {
   middleware: ["auth"],
-  components: { UserInfo, UserRequest, UserFindHouse, UserForRent },
+  components: { UserInfo, UserRequest, UserFindHouse, UserForRent, Loading },
   mixins: [initLoadProgress, currentUser],
   data () {
     return {
+      loading: false,
       currentPage: 1,
       files: []
     };
@@ -35,11 +37,6 @@ export default {
   created() {
     this.currentPage = this.currentTab;
   },
-  mounted() {
-    let loader = null;
-    if(!this.isUser) { loader = this.$loading.show() }
-    EventBus.$on('user-first-loading', () => {if(loader) loader.hide()});
-  },
   methods: {
     ...mapActions({
         updateCurrentTab: 'utilities/updateCurrentTab',
@@ -55,16 +52,19 @@ export default {
     async handleUploadAvatar({ data, file, onError, onProgress, onSuccess }) {
       const fileData = new FormData();
       fileData.append('file', file);
-      const loader = this.$loading.show();
+      this.loading = true;
       // step 1: upload file
       const listFile = await this.uploadFile(fileData);
       // step 2: update profile
       this.updateProfile({  avatar: listFile[0] })
       .then(() => {
-        loader.hide();
-        this.$message.success('Upload avatar thành công');
+        this.loading = false;
+        this.$message.success('Đã thay đổi avatar.');
       })
-      .catch(() => this.$message.error('Có lỗi khi upload avatar'))
+      .catch(() => {
+        this.loading = false;
+        this.$message.error('Có lỗi khi upload avatar');
+      })
     }
   },
   destroyed() {

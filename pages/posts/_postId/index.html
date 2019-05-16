@@ -80,7 +80,7 @@
                             <div class="detail-body--info_price">
                                 <span class="detail-body--info_price--title">Giá thuê</span>
                                 <span class="detail-body--info_price--content">
-                                    {{postDetail.price | thousand | currency}}đ/th
+                                    {{postDetail.price | thousand | currency}} đ/th
                                 </span>
                             </div>
                             <a-divider></a-divider>
@@ -90,22 +90,26 @@
                                     <span>Tiền điện</span>
                                 </div>
                                 <div class="detail-body--info_item_price">
-                                    {{postDetail.extensions.electricity | currency}} đ/th</div>
+                                    {{postDetail.extensions.electricity ? postDetail.extensions.electricity : 0 | thousand | currency}} đ/th
+                                </div>
                             </div>
                             <div class="detail-body--info_item">
                                 <div class="detail-body--info_item_sub">
                                     <i class="fas fa-tint"></i>
                                     <span>Tiền nước</span>
                                 </div>
-                                <div class="detail-body--info_item_price">{{postDetail.extensions.water | currency}}
-                                    đ/th</div>
+                                <div class="detail-body--info_item_price">
+                                    {{postDetail.extensions.water ? postDetail.extensions.water : 0 | thousand | currency}} đ/kwh
+                                </div>
                             </div>
                             <div class="detail-body--info_item">
                                 <div class="detail-body--info_item_sub">
                                     <i class="far fa-wifi"></i>
                                     <span>Internet/Wifi</span>
                                 </div>
-                                <div class="detail-body--info_item_price">{{151000 | currency}} đ</div>
+                                <div class="detail-body--info_item_price">
+                                    {{postDetail.extensions.water ? postDetail.extensions.water : 0 | thousand | currency}} đ/th
+                                </div>
                             </div>
                             <a-divider></a-divider>
                             <!-- <div class="detail-body--info_item">
@@ -169,7 +173,8 @@
             </div>
         </div>
     </div>
-    <div class="detail-404 container" v-else-if="notFound">
+    <Loading :isLoading="!postDetail.title && !notFound" />
+    <div class="detail-404 container" v-if="notFound">
         <div class="detail-404--content">
             <h1>AWWW...ĐỪNG KHÓC.</h1>
             <p>404 Lỗi!</p>

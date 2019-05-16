@@ -1,6 +1,7 @@
 <template src="./index.html"></template>
 <style src="./index.scss" lang="scss" scoped></style>
 <script>
+import { Loading } from '@/components/loading';
 import { Selected } from '@/components/selected';
 import { CardHire } from '@/components/card-hire';
 import { Thumbnail } from '@/components/thumbnail';
@@ -11,7 +12,7 @@ import { mapActions } from 'vuex';
 import { initLoadProgress } from '@/mixins';
 
 export default {
-  components: { CardHire, Typed, Selected, Thumbnail },
+  components: { CardHire, Typed, Selected, Thumbnail, Loading },
   mixins: [initLoadProgress],
   data () {
     return {
@@ -53,14 +54,12 @@ export default {
     }
   },
   mounted() {
-    const loader = this.$loading.show();
     Promise.all([
       this.getPostsByFiltered({ limit: 8 }), 
       this.getPostsByFiltered({ limit: 8, type: 2})
     ]).then(data => {
         this.newPosts = data[0].data;
         this.apartments = data[1].data;
-        loader.hide();
     });
   }
 }

@@ -2,13 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _abd655e2 = () => interopDefault(import('../pages/account/index.vue' /* webpackChunkName: "pages/account/index" */))
-const _4835d5d8 = () => interopDefault(import('../pages/post/index.vue' /* webpackChunkName: "pages/post/index" */))
-const _a6227616 = () => interopDefault(import('../pages/posts/index.vue' /* webpackChunkName: "pages/posts/index" */))
-const _1eccd520 = () => interopDefault(import('../pages/posts/_postId/index.vue' /* webpackChunkName: "pages/posts/_postId/index" */))
-const _3f63496a = () => interopDefault(import('../pages/posts/_postId/task/index.vue' /* webpackChunkName: "pages/posts/_postId/task/index" */))
-const _437081fa = () => interopDefault(import('../pages/posts/_postId/task/_taskId/index.vue' /* webpackChunkName: "pages/posts/_postId/task/_taskId/index" */))
-const _0cf69171 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _351a17f5 = () => interopDefault(import('../pages/account/index.vue' /* webpackChunkName: "pages/account/index" */))
+const _22f9a824 = () => interopDefault(import('../pages/post/index.vue' /* webpackChunkName: "pages/post/index" */))
+const _23d8ed4a = () => interopDefault(import('../pages/posts/index.vue' /* webpackChunkName: "pages/posts/index" */))
+const _7431d386 = () => interopDefault(import('../pages/posts/_postId/index.vue' /* webpackChunkName: "pages/posts/_postId/index" */))
+const _75094a78 = () => interopDefault(import('../pages/posts/_postId/task/index.vue' /* webpackChunkName: "pages/posts/_postId/task/index" */))
+const _4612cd58 = () => interopDefault(import('../pages/posts/_postId/task/_taskId/index.vue' /* webpackChunkName: "pages/posts/_postId/task/_taskId/index" */))
+const _28881a57 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -86,31 +86,31 @@ export function createRouter() {
 
     routes: [{
       path: "/account",
-      component: _abd655e2,
+      component: _351a17f5,
       name: "account"
     }, {
       path: "/post",
-      component: _4835d5d8,
+      component: _22f9a824,
       name: "post"
     }, {
       path: "/posts",
-      component: _a6227616,
+      component: _23d8ed4a,
       name: "posts"
     }, {
       path: "/posts/:postId",
-      component: _1eccd520,
+      component: _7431d386,
       name: "posts-postId"
     }, {
       path: "/posts/:postId/task",
-      component: _3f63496a,
+      component: _75094a78,
       name: "posts-postId-task"
     }, {
       path: "/posts/:postId/task/:taskId",
-      component: _437081fa,
+      component: _4612cd58,
       name: "posts-postId-task-taskId"
     }, {
       path: "/",
-      component: _0cf69171,
+      component: _28881a57,
       name: "index"
     }],
 

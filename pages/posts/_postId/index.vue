@@ -4,6 +4,7 @@
 const ConfirmHelperModal = () => import('@/components/task/ConfirmHelperModal');
 const UpdatePostModal = () => import('@/components/user/UpdatePostModal');
 import { Preview, Prefer } from '@/components/carousel-preview';
+import { Loading } from '@/components/loading';
 import { Comment } from '@/components/comment';
 import { Utilities } from '@/components/utils';
 import { mapActions } from 'vuex';
@@ -25,7 +26,7 @@ export default {
     //     console.log(this.postPrefer)
     //     return {};
     // },
-    components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal, UpdatePostModal },
+    components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal, UpdatePostModal, Loading },
     mixins: [initLoadProgress, currentUser],
     data() {
         return {
@@ -77,24 +78,17 @@ export default {
             getPostById: 'post/getPostById'
         }),
         loadDetail() {
-            // this.$nextTick(() => {
-                // const loader = this.$loading.show();
-
-                this.postDetail = {};
-                this.getPostById(this.postId)
-                .then(data => {
-                    this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
-                    this.postDetail = data;
-                    this.getPostsByFiltered({ limit: 8, districts: data.district.code})
-                    .then(results => this.postPrefer = results.data);
-                    // loader.hide();
-                })
-                .catch(() => {
-                    this.notFound = true;
-                    // setTimeout(() => loader.hide(), 500);
-                    setTimeout(() => this.$router.push({ path: '/' }), 5000);
-                })
-            // });
+            this.postDetail = {};
+            this.getPostById(this.postId)
+            .then(data => {
+                this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
+                this.postDetail = data;
+                this.getPostsByFiltered({ limit: 8, districts: data.district.code})
+                .then(results => this.postPrefer = results.data);
+            })
+            .catch(() => {
+                this.notFound = true;
+            })
         },
         renderAvatar(avatar) {
             return format.formatImg(avatar);
@@ -130,8 +124,6 @@ export default {
     created() {
         this.postId = this.$route.params.postId || '1';
         this.loadDetail();
-    },
-    mounted() {
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll);
