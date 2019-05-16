@@ -50,7 +50,9 @@ export default {
       return {
         facilities: facility.getFacilities(),
         pagination: {
-            pageSize: 8,
+            total: 0,
+            pageSize: 20,
+            current: 1,
         },
         posts: [],
         value: 1,
@@ -81,9 +83,10 @@ export default {
         filteredPosts() {
             const { posts } = this;
             const { code } = this.sortSelected;
-            if(code.includes('price.asc')) return posts.sort((a, b) => a.price - b.price);
-            if(code.includes('price.desc')) return posts.sort((a, b) => b.price - a.price);
-            return posts.sort((a, b) => a.created.localeCompare(b.created));
+            return this.posts;
+            // if(code.includes('price.asc')) return posts.sort((a, b) => a.price - b.price);
+            // if(code.includes('price.desc')) return posts.sort((a, b) => b.price - a.price);
+            // return posts.sort((a, b) => a.created.localeCompare(b.created));
         }
     },
     methods: {
@@ -92,9 +95,15 @@ export default {
         }),
         loadPosts() {
             const loader = this.$loading.show();
-            this.getPostsByFiltered(this.filteredOptions)
-            .then(data => {
-                this.posts = data;
+            const payload = {
+                ...this.filteredOptions, 
+                current: this.pagination.current,
+                limit: this.pagination.pageSize
+            }
+            this.getPostsByFiltered(payload)
+            .then(post => {
+                Object.assign(this.pagination, {total: post.total * post.limit});
+                this.posts = post.data;
                 loader.hide();
             });
         },
@@ -193,6 +202,10 @@ export default {
             this.$refs.type.reset();
             this.$refs.range.reset();
             this.facilities = this.facilities.map(item => ({ ...item, choose: false }))
+        },
+        handleLoadPerPage(page) {
+            this.pagination.current = page;
+            this.loadPosts();
         },
 
         districtsNameClear() {

@@ -58,8 +58,8 @@ export default {
       this.getPostsByFiltered({ limit: 8 }), 
       this.getPostsByFiltered({ limit: 8, type: 2})
     ]).then(data => {
-        this.newPosts = data[0];
-        this.apartments = data[1];
+        this.newPosts = data[0].data;
+        this.apartments = data[1].data;
         loader.hide();
     });
   }

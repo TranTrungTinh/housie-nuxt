@@ -41,9 +41,10 @@ export default {
         return axios.get(`/posts?userId=${id}`);
     },
     getPostsByFiltered(payload) {
-        const { keywords, type, districts, min, max, facilities, limit } = payload;
+        const { keywords, type, districts, min, max, facilities, limit, current } = payload;
         
         let queryOptions = {};
+        Object.assign(queryOptions, { offset: current ? current : 1 });
         if(keywords) Object.assign(queryOptions, { keywords: keywords })
         if(type) Object.assign(queryOptions, { type: type })
         if(districts) Object.assign(queryOptions, { districts: districts })

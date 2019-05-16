@@ -2,19 +2,14 @@
   <vue-simple-suggest
     class="search-box"
     pattern="\w+"
+    mode="input"
     :list="getList"
     :max-suggestions="10"
     :min-length="3"
     :debounce="200"
     :filter-by-query="false"
     :prevent-submit="true"
-    :controls="{
-        selectionUp: [38, 33],
-        selectionDown: [40, 34],
-        select: [13, 36],
-        hideList: [27, 35]
-      }"
-    :mode="mode"
+    :controls="controls"
     :nullable-select="true"
     ref="suggestComponent"
     value-attribute="id"
@@ -28,8 +23,6 @@
       <a-input-search size="large" @search="handleSearch" placeholder="Từ khoá 'Phòng trọ'"/>
     </div>
     
-    <!-- <test-input placeholder="Search information..." /> -->
-
     <template slot="misc-item-above" slot-scope="{ suggestions, query }">
       <div class="suggestion-item--text misc-item">
         <span>Kết quả tìm kiếm cho '{{ query }}'.</span>
@@ -54,7 +47,9 @@
     </div>
 
     <div class="misc-item" slot="misc-item-below" v-if="loading">
-      <span>Đang tìm...</span>
+      <span>
+        <a-icon type="loading-3-quarters" spin/> Đang tìm...
+      </span>
     </div>
   </vue-simple-suggest>
 </template>
@@ -63,9 +58,15 @@
 export default {
   data() {
     return {
-      selected: '',
+      selected: {},
       mode: "input",
       loading: false,
+      controls: {
+        selectionUp: [38, 33],
+        selectionDown: [40, 34],
+        select: [13, 36],
+        hideList: [27, 35]
+      }
     }
   },
   methods: {
@@ -75,10 +76,8 @@ export default {
       let result = this.$refs.suggestComponent.displayProperty(suggestion);
       if (!query) return result;
       const texts = query.split(/[\s-_/\\|\.]/gm).filter(t => !!t) || [""];
-      return result.replace(
-        new RegExp("(.*?)(" + texts.join("|") + ")(.*?)", "gi"),
-        "$1<span class='match'>$2</span>$3"
-      );
+      const showReg = new RegExp("(.*?)(" + texts.join("|") + ")(.*?)", "gi");
+      return result.replace(showReg, "$1<span class='match'>$2</span>$3");
     },
     handleSearch(value) {
       console.log(value)

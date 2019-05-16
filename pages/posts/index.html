@@ -117,7 +117,6 @@
                         :grid="{ gutter: 14, xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }"
                         :dataSource="filteredPosts"
                         size="large"
-                        :pagination="pagination"
                         v-if="filteredPosts.length > 0"
                     >
                         <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
@@ -130,7 +129,15 @@
                                 :price="item.price" 
                             />
                         </a-list-item>
-                      </a-list>
+                        <div class="posts-body--content_pagination">
+                            <a-pagination 
+                                :pageSize="pagination.pageSize" 
+                                :total="pagination.total" 
+                                :current="pagination.current"
+                                @change="handleLoadPerPage"
+                            />
+                        </div>
+                    </a-list>
                     <div class="posts-body--content_loading" v-else>
                         <img src="~@/assets/img/not-found.svg" alt="Image not found" />
                         <p>Housie không tìm thấy kết quả phòng phù hợp !!!</p>
