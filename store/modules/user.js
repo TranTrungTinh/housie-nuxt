@@ -41,6 +41,7 @@ const actions = {
       const response = await authApi.fetchUser(token);
       commit('loginSuccess', { user: response.data.user, userId: token });
     } catch(error) {
+      localStorage.removeItem('auth');
       throw new Error('FAIL_FETCH_API_ME');
     }
   },

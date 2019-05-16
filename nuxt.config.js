@@ -58,6 +58,19 @@ module.exports = {
   ],
 
   /*
+  ** Nuxt.js serverMiddleware
+  */
+  serverMiddleware: [
+    { 
+      path: '/post', 
+      handler: (req, res, next) => { 
+        res.spa = true; 
+        next();
+      } 
+    }
+  ],
+
+  /*
   ** Nuxt.js modules
   */
   modules: [],

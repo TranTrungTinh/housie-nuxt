@@ -71,6 +71,9 @@ export default {
             }
         }
         return axios.get('/postbuyers', options);
+    },
+    getSuggestionsKeywords(keywords) {
+        return axios.get('/posts/suggests', { params: { keywords } });
     }
     
 }

@@ -6,7 +6,7 @@
     :list="getList"
     :max-suggestions="10"
     :min-length="3"
-    :debounce="200"
+    :debounce="500"
     :filter-by-query="false"
     :prevent-submit="true"
     :controls="controls"
@@ -20,13 +20,13 @@
     @request-failed="onRequestFailed"
   >
     <div class="search">
-      <a-input-search size="large" @search="handleSearch" placeholder="Từ khoá 'Phòng trọ'"/>
+      <a-input-search size="large" @search="handleSearch" placeholder="Nhập từ khoá không có dấu"/>
     </div>
     
-    <template slot="misc-item-above" slot-scope="{ suggestions, query }">
-      <div class="suggestion-item--text misc-item">
+    <template slot="misc-item-above" slot-scope="{ suggestions }">
+      <!-- <div class="suggestion-item--text misc-item">
         <span>Kết quả tìm kiếm cho '{{ query }}'.</span>
-      </div>
+      </div> -->
 
       <template v-if="suggestions.length > 0">
         <div class="suggestion-item--text misc-item">
@@ -42,7 +42,7 @@
 
     <div slot="suggestion-item" slot-scope="scope" :title="scope.suggestion.description">
       <div class="suggestion-item--text">
-        <span v-html="boldenSuggestion(scope)"></span>
+        <div v-html="boldenSuggestion(scope)"></div>
       </div>
     </div>
 
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -70,6 +71,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getSuggestionsKeywords: 'post/getSuggestionsKeywords'
+    }),
+    supportSlpit(mainString) {
+      const index = mainString.indexOf('<span');
+      const postString = mainString.substring(index);
+      if(!index) return mainString;
+      const pre = mainString.substring(0, index);
+      if(pre.length < 30) return `${pre}${postString}`;
+      const subPre = pre.substring(Math.floor(3 * pre.length / 4));
+      return `...${subPre}${postString}`;
+    },
     boldenSuggestion(scope) {
       if (!scope) return scope;
       const { suggestion, query } = scope;
@@ -77,7 +90,8 @@ export default {
       if (!query) return result;
       const texts = query.split(/[\s-_/\\|\.]/gm).filter(t => !!t) || [""];
       const showReg = new RegExp("(.*?)(" + texts.join("|") + ")(.*?)", "gi");
-      return result.replace(showReg, "$1<span class='match'>$2</span>$3");
+      const mainString = result.replace ? result.replace(showReg, `$1<span class='match'>$2</span>$3`) : '';
+      return this.supportSlpit(mainString);
     },
     handleSearch(value) {
       console.log(value)
@@ -87,43 +101,7 @@ export default {
     onRequestDone() {  this.loading = false },
     onRequestFailed() { this.loading = false},
     getList(inputValue) {
-      return new Promise((resolve, reject) => {
-        // let url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${inputValue}`
-        let url = `https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&namespace=*&search=${inputValue}&limit=10&namespace=0&format=json`;
-        // this.$refs.suggestComponent.clearSuggestions()
-        fetch(url)
-          .then(response => {
-            if (!response.ok) {
-              reject();
-            }
-            response
-              .json()
-              .then(json => {
-                let autocompleteText = json.shift();
-                let result = [];
-                const fields = ["text", "description", "link"];
-                json.forEach((part, i) => {
-                  part.forEach((el, j) => {
-                    if (!result[j]) {
-                      result.push({
-                        id: j + 1
-                      });
-                    }
-                    result[j][fields[i]] = el;
-                  });
-                });
-                resolve(result);
-                // resolve([...(json.items || [])])
-              })
-              .catch(e => {
-                reject(e);
-              });
-          })
-          .catch(error => {
-            this.loading = false;
-            reject(error);
-          });
-      });
+      return this.getSuggestionsKeywords(inputValue);
     }
   }
 };
@@ -149,10 +127,22 @@ export default {
   font-size: 16px;
   height: 40px;
   line-height: 40px;
+
+  & > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 .match {
   color: #FD3D76;
   // text-decoration: underline;
   font-weight: bold;
+}
+.pre {
+  display: inline-block;
+  // white-space: pre-wrap;
+  // word-wrap: break-word;
+  // text-overflow: ellipsis; 
 }
 </style>

@@ -109,7 +109,7 @@ const actions = {
   setLocation({ commit }, payload) {
     commit('updateLocation', payload);
   },
-  async getAllPost() {
+  getAllPost() {
     return postApi.getAll();
   },
 
@@ -195,6 +195,19 @@ const actions = {
       return response.data;
     } catch (error) {
       throw new Error('CAN_NOT_GET_RENT');             
+    }
+  },
+
+  async getSuggestionsKeywords(_, keywords) {
+    try {
+      const results = await postApi.getSuggestionsKeywords(keywords);
+      const mixData = results.data.map(item => {
+        const { id, display, searchable } = item;
+        return { id, description: display, text: searchable };
+      });
+      return mixData; 
+    } catch (error) {
+      throw new Error('CAN_NOT_GET_SUGGEST');
     }
   }
 

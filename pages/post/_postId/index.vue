@@ -80,7 +80,7 @@ export default {
                 this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
                 this.postDetail = data;
                 this.getPostsByFiltered({ limit: 8, districts: data.district.code})
-                .then(results => this.postPrefer = results);
+                .then(results => this.postPrefer = results.data);
                 loader.hide();
             })
             .catch(() => {
