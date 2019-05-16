@@ -46,31 +46,12 @@
           </div>
       </div>
   </div>
-  <a-divider></a-divider>
+  <!-- <a-divider></a-divider> -->
   <div class="container-fluid">
 
       <div class="home-card-hire">
           <div class="container">
-              <a-row type="flex" justify="space-between">
-                  <a-col class="home-card-hire--item">
-                      <CardHire
-                          :title="`Tạo tin cần thuê`"
-                          :des="`Chỉ cần tạo tin, housie sẽ báo lại ngay khi có phòng phù hợp`"
-                          :button="`Tạo ngay`"
-                          link="/rent"
-                          :type="0"
-                      />
-                  </a-col>
-                  <a-col class="home-card-hire--item">
-                      <CardHire 
-                          :title="`Đăng phòng cho thuê`"
-                          :des="`Đăng phòng dễ dàng, tìm được người thuê nhanh chóng`"
-                          :button="`Đăng ngay`"
-                          link="/post"
-                          :type="1"
-                      />
-                  </a-col>
-              </a-row>
+              <CardHire />
           </div>
       </div>
 

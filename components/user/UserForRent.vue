@@ -60,7 +60,7 @@ export default {
       return format.formatImg(image);
     },
     handleDetail(id) {
-      this.$router.push({ path: `/post/${id}` })
+      this.$router.push({ path: `/posts/${id}` })
     },
     handleDelete(id) {
       this.$message.info('Chưa hổ trợ xoá tin đăng.')

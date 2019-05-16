@@ -5,9 +5,9 @@ import { interopDefault } from './utils'
 const _abd655e2 = () => interopDefault(import('../pages/account/index.vue' /* webpackChunkName: "pages/account/index" */))
 const _4835d5d8 = () => interopDefault(import('../pages/post/index.vue' /* webpackChunkName: "pages/post/index" */))
 const _a6227616 = () => interopDefault(import('../pages/posts/index.vue' /* webpackChunkName: "pages/posts/index" */))
-const _4ebc963f = () => interopDefault(import('../pages/post/_postId/index.vue' /* webpackChunkName: "pages/post/_postId/index" */))
-const _390a63ab = () => interopDefault(import('../pages/post/_postId/task/index.vue' /* webpackChunkName: "pages/post/_postId/task/index" */))
-const _3ebdcb3b = () => interopDefault(import('../pages/post/_postId/task/_taskId/index.vue' /* webpackChunkName: "pages/post/_postId/task/_taskId/index" */))
+const _1eccd520 = () => interopDefault(import('../pages/posts/_postId/index.vue' /* webpackChunkName: "pages/posts/_postId/index" */))
+const _3f63496a = () => interopDefault(import('../pages/posts/_postId/task/index.vue' /* webpackChunkName: "pages/posts/_postId/task/index" */))
+const _437081fa = () => interopDefault(import('../pages/posts/_postId/task/_taskId/index.vue' /* webpackChunkName: "pages/posts/_postId/task/_taskId/index" */))
 const _0cf69171 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -97,17 +97,17 @@ export function createRouter() {
       component: _a6227616,
       name: "posts"
     }, {
-      path: "/post/:postId",
-      component: _4ebc963f,
-      name: "post-postId"
+      path: "/posts/:postId",
+      component: _1eccd520,
+      name: "posts-postId"
     }, {
-      path: "/post/:postId/task",
-      component: _390a63ab,
-      name: "post-postId-task"
+      path: "/posts/:postId/task",
+      component: _3f63496a,
+      name: "posts-postId-task"
     }, {
-      path: "/post/:postId/task/:taskId",
-      component: _3ebdcb3b,
-      name: "post-postId-task-taskId"
+      path: "/posts/:postId/task/:taskId",
+      component: _437081fa,
+      name: "posts-postId-task-taskId"
     }, {
       path: "/",
       component: _0cf69171,

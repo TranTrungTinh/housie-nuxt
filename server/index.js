@@ -7,9 +7,17 @@ const app = express();
 let config = require('../nuxt.config.js');
 config.dev = !(process.env.NODE_ENV === 'production');
 
+// Init Nuxt.js
+const nuxt = new Nuxt(config);
+
+function handleRequest(req, res) {
+  res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
+  nuxt.renderRoute('/')
+    .then(result => res.send(result.html))
+    .catch(error => res.send(error))
+}
+
 async function start() {
-  // Init Nuxt.js
-  const nuxt = new Nuxt(config);
 
   const { host, port } = nuxt.options.server;
 
@@ -24,11 +32,15 @@ async function start() {
   // Give nuxt middleware to express
   app.use(nuxt.render);
 
+  // Handle route
+  app.get('*', handleRequest);
+
   // Listen the server
   app.listen(port, host);
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
-  })
+  });
 }
 start();
+

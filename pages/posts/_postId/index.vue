@@ -20,6 +20,11 @@ export default {
             ]
         }
     },
+    // asyncData (context) {
+    //     console.log(context);
+    //     console.log(this.postPrefer)
+    //     return {};
+    // },
     components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal, UpdatePostModal },
     mixins: [initLoadProgress, currentUser],
     data() {
@@ -72,22 +77,24 @@ export default {
             getPostById: 'post/getPostById'
         }),
         loadDetail() {
-            const loader = this.$loading.show();
+            // this.$nextTick(() => {
+                // const loader = this.$loading.show();
 
-            this.postDetail = {};
-            this.getPostById(this.postId)
-            .then(data => {
-                this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
-                this.postDetail = data;
-                this.getPostsByFiltered({ limit: 8, districts: data.district.code})
-                .then(results => this.postPrefer = results.data);
-                loader.hide();
-            })
-            .catch(() => {
-                this.notFound = true;
-                setTimeout(() => loader.hide(), 500);
-                setTimeout(() => this.$router.push({ path: '/' }), 5000);
-            })
+                this.postDetail = {};
+                this.getPostById(this.postId)
+                .then(data => {
+                    this.rootTitle = `${data.ward.path_with_type} cho thuê - Housie`;
+                    this.postDetail = data;
+                    this.getPostsByFiltered({ limit: 8, districts: data.district.code})
+                    .then(results => this.postPrefer = results.data);
+                    // loader.hide();
+                })
+                .catch(() => {
+                    this.notFound = true;
+                    // setTimeout(() => loader.hide(), 500);
+                    setTimeout(() => this.$router.push({ path: '/' }), 5000);
+                })
+            // });
         },
         renderAvatar(avatar) {
             return format.formatImg(avatar);
@@ -122,9 +129,9 @@ export default {
     },
     created() {
         this.postId = this.$route.params.postId || '1';
+        this.loadDetail();
     },
     mounted() {
-        this.loadDetail();
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll);

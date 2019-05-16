@@ -56,7 +56,7 @@ export default {
     }),
     handleCheckResult() {},
     handleClick(taskId, postId) {
-      this.$router.push({ path: `/post/${postId}/task/${taskId}` });
+      this.$router.push({ path: `/posts/${postId}/task/${taskId}` });
       const data = this.tasks.find(item => item.id === +taskId);
       storage.saveItem('task-detail', data);
     },
