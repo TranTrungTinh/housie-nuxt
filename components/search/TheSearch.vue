@@ -93,10 +93,12 @@ export default {
       const mainString = result.replace ? result.replace(showReg, `$1<span class='match'>$2</span>$3`) : '';
       return this.supportSlpit(mainString);
     },
-    handleSearch(value) {
-      console.log(value)
+    handleSearch() {
     },
-    onSuggestSelect(selected) { this.selected = selected },
+    onSuggestSelect(selected) { 
+      this.selected = selected;
+      this.$router.push({ path: `/posts/${selected.id}` });
+    },
     onRequestStart() { this.loading = true },
     onRequestDone() {  this.loading = false },
     onRequestFailed() { this.loading = false},
