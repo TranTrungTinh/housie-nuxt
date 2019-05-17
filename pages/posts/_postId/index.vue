@@ -16,16 +16,10 @@ export default {
         return {
             title: this.rootTitle,
             meta: [
-                // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-                { hid: 'description', name: 'description', content: 'My custom description' }
+                { hid: 'description', name: 'description', content: 'Housie detail of post' }
             ]
         }
     },
-    // asyncData (context) {
-    //     console.log(context);
-    //     console.log(this.postPrefer)
-    //     return {};
-    // },
     components: { Preview, Prefer, Utilities, Comment, ConfirmHelperModal, UpdatePostModal, Loading },
     mixins: [initLoadProgress, currentUser],
     data() {

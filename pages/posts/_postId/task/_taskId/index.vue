@@ -16,9 +16,11 @@
         </a-col>
       </a-row>
     </div>
+    <Loading :isLoading="loading" />
   </section>
 </template>
 <script>
+import { Loading } from '@/components/loading';
 import { RoomInfo, RoomStatus } from '@/components/task';
 import { storage } from '@/helpers';
 
@@ -26,18 +28,15 @@ export default {
   middleware: ["auth"],
   head() {
       return {
-          title: 'Kết quả xem phòng - Housie',
-          meta: [
-              // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-              { hid: 'description', name: 'description', content: 'My custom description' }
-          ]
+          title: 'Kết quả xem phòng - Housie'
       }
   },
-  components: { RoomInfo, RoomStatus },
+  components: { RoomInfo, RoomStatus, Loading },
   data() {
       return {
           taskDetail: {},
-          taskResult: {}
+          taskResult: {},
+          loading: false
       }
   },
   computed: {
@@ -46,12 +45,12 @@ export default {
       }
   },
   mounted() {
-      const loader = this.$loading.show();
-      setTimeout(() => {
-          this.taskDetail = storage.getItem('task-detail');
-          if(this.taskDetail.result) this.taskResult = { ...this.taskDetail.result }
-          loader.hide();
-      }, 500)
+    this.loading = true;
+    setTimeout(() => {
+        this.taskDetail = storage.getItem('task-detail');
+        if(this.taskDetail.result) this.taskResult = { ...this.taskDetail.result }
+        this.loading = false
+    }, 500);
   }
 }
 </script>

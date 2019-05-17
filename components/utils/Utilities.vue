@@ -42,7 +42,7 @@ export default {
     margin: 0 10px;
   }
   &--title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     margin: 0 10px;
   }

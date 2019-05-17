@@ -23,12 +23,10 @@ export default {
         }
     },
     computed: {
-        currentHeader() {
-            return this.$store.getters['header/currentHeader'];
-        },
-        step() {
-            return this.$store.getters['header/step'];
-        },
+        ...mapGetters({
+            currentHeader: 'header/currentHeader',
+            step: 'header/step'
+        }),
         showColMatchStep() {
             if(this.currentHeader) return 5;
             return 12;

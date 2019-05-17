@@ -207,7 +207,6 @@ export default {
             // step 3: Reset child state
             Object.assign(this.filtered, initFitered());
             this.$refs.type.reset();
-            this.$refs.range.reset();
             this.facilities = this.facilities.map(item => ({ ...item, choose: false }))
         },
         handleLoadPerPage(page) {

@@ -9,9 +9,6 @@
       <div class="profile-item" @click="handleCreatePost">
         <a>Đăng phòng</a>
       </div>
-      <div class="profile-item" @click="handleCreateRent">
-        <a>Tạo tin tìm phòng</a>
-      </div>
       <div class="small-divider"></div>
       <div class="profile-item" @click="handleNavigate(4)">
         <!-- <i class="fal fa-home-heart"></i> -->
@@ -20,10 +17,6 @@
       <div class="profile-item" @click="handleNavigate(2)">
         <!-- <i class="fas fa-home-lg-alt"></i> -->
         <a>Phòng nhờ xem giúp</a>
-      </div>
-      <div class="profile-item" @click="handleNavigate(3)">
-        <!-- <i class="fas fa-home-lg-alt"></i> -->
-        <a>Tin cần thuê</a>
       </div>
       <div class="small-divider"></div>
       <div class="profile-item logout" v-show="!loading" @click="handleLogout">
@@ -80,10 +73,6 @@ export default {
     },
     handleCreatePost() {
       this.$router.push({ path: '/post' });
-      this.hide();
-    },
-    handleCreateRent() {
-      this.$router.push({ path: '/rent' });
       this.hide();
     }
   }
