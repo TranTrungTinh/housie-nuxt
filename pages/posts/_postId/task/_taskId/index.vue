@@ -3,15 +3,15 @@
     <div class="container">
       <a-row :gutter="20">
         <a-col :lg="16">
-          <RoomStatus v-if="isTask" :status="taskDetail.status" :result="taskResult" />
+          <RoomStatus v-if="isTask" :status="formatStatus(taskDetail.status)" :result="taskResult" />
         </a-col>
         <a-col :lg="8">
           <RoomInfo 
             v-if="isTask"
-            :post="taskDetail.post"
+            :post="postDetail.post"
             :message="taskDetail.message"
             :duedate="taskDetail.duedate"
-            :status="taskDetail.status"
+            :status="formatStatus(taskDetail.status)"
           />
         </a-col>
       </a-row>
@@ -20,6 +20,7 @@
   </section>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import { Loading } from '@/components/loading';
 import { RoomInfo, RoomStatus } from '@/components/task';
 import { storage } from '@/helpers';
@@ -36,8 +37,21 @@ export default {
       return {
           taskDetail: {},
           taskResult: {},
+          postDetail: {},
           loading: false
       }
+  },
+  methods: {
+    ...mapActions({
+      getTaskById: 'task/getTaskById'
+    }),
+    formatStatus(status) {
+      if(status === 'new') return 0;
+      if(status === 'inprogress') return 1;
+      if(status === 'completed') return 2;
+      if(status === 'cancelled') return 3;
+      return 4;
+    }
   },
   computed: {
       isTask() {
@@ -46,11 +60,16 @@ export default {
   },
   mounted() {
     this.loading = true;
-    setTimeout(() => {
-        this.taskDetail = storage.getItem('task-detail');
-        if(this.taskDetail.result) this.taskResult = { ...this.taskDetail.result }
-        this.loading = false
-    }, 500);
+    const { postId, taskId } = this.$route.params;
+    this.getTaskById({ postId, taskId })
+    .then(result => {
+      console.log(result)
+      this.taskDetail = { ...result }
+      this.postDetail = storage.getItem('task-detail');
+      if(this.taskDetail.result) this.taskResult = { ...this.taskDetail.result }
+      this.loading = false;
+    })
+    .catch(() => this.loading = false);
   }
 }
 </script>

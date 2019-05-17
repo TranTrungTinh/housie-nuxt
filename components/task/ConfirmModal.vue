@@ -24,7 +24,8 @@ export default {
     },
     handleOk (e) {
       this.visible = false;
-      this.$router.push({ path: '/' });
+      this.$router.push({ path: '/account' });
+      this.$store.dispatch('utilities/updateCurrentTab', 2);
     }
   }
 }

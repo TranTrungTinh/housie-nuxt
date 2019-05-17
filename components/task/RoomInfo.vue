@@ -11,7 +11,7 @@
   </div>
   <div class="room-box--item" v-if="status !== 2">
     <div class="room-box--estimate">
-      <div class="room-box--estimate__title">Bạn sẽ nhận kết quả sau...</div><!-- {{ duedate | fromNow }} -->
+      <div class="room-box--estimate__title">Bạn sẽ nhận kết quả sau {{ duedate | fromNow }}.</div><!-- {{ duedate | fromNow }} -->
       <div class="room-box--estimate__des">(Tính từ lúc tìm được người xem phòng)</div>
     </div>
   </div>
@@ -34,11 +34,10 @@
       <a-row type="flex" justify="space-between">
         <a-col class="room-box--message__title">Lời nhắn của bạn</a-col>
         <a-col class="room-box--message__action">
-          <a @click="beforeUpdateTask" v-show="!isEdit"><i class="fas fa-pencil"></i></a>
-          <a style="color: red" @click="handleUpdateTask" v-show="isEdit"><i class="fas fa-save"></i></a>
+          <a @click="beforeUpdateTask" v-if="!isEdit"><i class="fas fa-pencil"></i></a>
+          <a style="color: red" @click="handleUpdateTask" v-if="isEdit"><i class="fas fa-save"></i></a>
         </a-col>
       </a-row>
-      <!-- <p class="room-box--message__form" >{{ message }}</p> -->
       <a-textarea
         class="room-box--message__form" 
         size="large" 

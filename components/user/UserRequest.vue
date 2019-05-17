@@ -14,9 +14,9 @@
           </a-col>
           <a-col :lg="16" class="user-request--task-content">
             <div>
-              <a-tag v-if="task.status === 0">Đang xử lý</a-tag>
-              <a-tag color="pink" v-if="task.status === 1">Đang chờ kết quả</a-tag>
-              <a-tag color="green" v-if="task.status === 2">Đã có kết quả</a-tag>
+              <a-tag v-if="task.status === 'new'">Đang xử lý</a-tag>
+              <a-tag color="pink" v-if="task.status === 'inprogress'">Đang chờ kết quả</a-tag>
+              <a-tag color="green" v-if="task.status === 'completed'">Đã có kết quả</a-tag>
             </div>
             <div class="user-request--task-content--price">{{ task.post.price | currency}} đ/tháng</div>
             <div class="user-request--task-content--desc">
@@ -67,8 +67,8 @@ export default {
   created() {
     this.loading = true;
     this.getMyTask(this.idUser).then(result => {
-        this.tasks = result.data;
-        this.loading = false;
+      this.tasks = result;
+      this.loading = false;
     });
   },
   head() {

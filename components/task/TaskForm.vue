@@ -157,7 +157,7 @@ export default {
     handleCreateRequest() { 
       if(!this.messages) return 
       const payload = {
-        id: this.$route.params.id,
+        id: this.$route.params.postId,
         duedate: +this.estimateDay.code,
         message: this.messages
       }
