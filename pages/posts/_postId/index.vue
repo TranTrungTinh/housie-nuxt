@@ -104,11 +104,12 @@ export default {
                 this.affix = 0;
                 return;
             }
-            if(window.scrollY > 528 && window.scrollY < 1329) {
+            if(window.scrollY > 528 && window.scrollY < 1070) {
                 this.affix = 1;
                 return;
             }
             this.affix = 2;
+
         },
         handleEditPost() {
             this.$refs.updatePostModal.receiveData(this.postDetail);

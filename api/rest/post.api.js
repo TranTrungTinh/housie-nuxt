@@ -37,8 +37,22 @@ export default {
         }
         return axios.post('/containers/s3-hoozing/upload', files, options);
     },
-    getPostsByOwner(id) {
-        return axios.get(`/posts?userId=${id}`);
+    getPostsByOwner(payload) {
+        const { id, token } = payload;
+        const options = {
+            headers: { 
+                Authorization: token
+            }
+        }
+        return axios.get(`/posts?userId=${id}`, options);
+    },
+    updatePostByOwner(token, payload) {
+        const options = {
+            headers: { 
+                Authorization: token
+            }
+        }
+        return axios.patch('/posts', payload ,options);
     },
     getPostsByFiltered(payload) {
         const { keywords, type, districts, min, max, facilities, limit, current } = payload;

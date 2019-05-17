@@ -1,143 +1,176 @@
 <template>
   <a-modal v-model="visible" centered :footer="null" :closable="false">
-    <span class="header-close" @click="close">
+    <!-- <span class="header-close" @click="close">
       <i class="far fa-times"></i>
-    </span>
+    </span> -->
     <div class="add-more">
-      <a-checkbox-group v-model="values" @change="onChecked">
+      <div class="add-more--title">Thêm chi phí</div>
+      <a-checkbox-group class="add-more--group" v-model="values">
         <div class="add-more--item">
           <div class="add-more--item__left">
-            <a-checkbox value="A">Tiền rác</a-checkbox>
+            <a-checkbox value="garbage">Tiền dọn rác</a-checkbox>
           </div>
           <div class="add-more--item__right">
-            <a-input type="text" :disabled="!isActive('A')"/>
+            <a-input 
+              size="large" 
+              type="number" 
+              addonAfter="đ/tháng" 
+              placeholder="Nhập giá tiền dọn rác"
+              :disabled="!isActive('garbage')"
+              v-model="extensions.garbage"
+            />
           </div>
         </div>
         <div class="add-more--item">
           <div class="add-more--item__left">
-            <a-checkbox value="B">Tiền nuoc</a-checkbox>
+            <a-checkbox value="clean">Tiền dọn vệ sinh</a-checkbox>
           </div>
           <div class="add-more--item__right">
-            <a-input type="text" :disabled="!isActive('B')"/>
+            <a-input 
+              size="large" 
+              type="number" 
+              addonAfter="đ/tháng" 
+              placeholder="Nhập giá tiền dọn vệ sinh"
+              :disabled="!isActive('clean')"
+              v-model="extensions.clean"
+            />
           </div>
         </div>
         <div class="add-more--item">
           <div class="add-more--item__left">
-            <a-checkbox value="C">Tiền dien</a-checkbox>
+            <a-checkbox value="parking">Tiền gửi xe</a-checkbox>
           </div>
           <div class="add-more--item__right">
-            <a-input type="text" :disabled="!isActive('C')"/>
+            <a-input 
+              size="large" 
+              type="number" 
+              addonAfter="đ/tháng" 
+              placeholder="Nhập giá tiền gửi xe"
+              :disabled="!isActive('parking')"
+              v-model="extensions.parking"
+            />
           </div>
         </div>
-        
-        
+        <div class="add-more--item">
+          <div class="add-more--item__left">
+            <a-checkbox value="laundry">Tiền giặt ủi</a-checkbox>
+          </div>
+          <div class="add-more--item__right">
+            <a-input 
+              size="large" 
+              type="number" 
+              addonAfter="đ/tháng" 
+              placeholder="Nhập giá tiền giặt ủi"
+              :disabled="!isActive('laundry')"
+              v-model="extensions.laundry"
+            />
+          </div>
+        </div>
+        <div class="add-more--item">
+          <div class="add-more--item__left">
+            <a-checkbox value="elevator">Chi phí thang máy</a-checkbox>
+          </div>
+          <div class="add-more--item__right">
+            <a-input 
+              size="large" 
+              type="number" 
+              addonAfter="đ/tháng" 
+              placeholder="Nhập giá chi phí thang máy"
+              :disabled="!isActive('elevator')"
+              v-model="extensions.elevator"
+            />
+          </div>
+        </div>
       </a-checkbox-group>
-      <!-- <a-form :form="form" @submit="handleAddMore">
-        <a-form-item class="add-more--item">
-            <span class="add-more--item_title">Tên chi phí</span>
-            <a-input v-decorator="[ 'title', { rules: rules.title }]" placeholder="Nhập tên chi phí" size="large"/>
-        </a-form-item>
-        <a-form-item class="add-more--item">
-            <span class="add-more--item_title">Số tiền</span>
-            <a-input v-decorator="[ 'data', { rules: rules.data }]" placeholder="Nhập số tiền" size="large" type="number" addonAfter="đ/tháng"/>
-        </a-form-item>
-        <div class="add-more-button">
-          <div class="add-more-button--cancel" @click="close">Huỷ</div>
-          <button class="add-more-button--add" html-type="submit">Thêm</button>
-        </div>
-      </a-form> -->
+      <div class="add-more-button">
+        <div class="add-more-button--cancel" @click="close">Huỷ</div>
+        <button class="add-more-button--add" @click="handleAdd">Thêm</button>
+      </div>
     </div>
   </a-modal>
 </template>
 <script>
 export default {
   props: {
-    onData: { type: Function }
+    onData: { type: Function, required: true, default: () => {} }
   },
   data() {
     return {
       visible: false,
-      rules: {
-          title: [{ required: true, message: 'Nhập tên chi phí !!!' }],
-          data: [{ required: true, message: 'Nhập số tiền !!!' }]
-      },
-      values: []
+      values: [],
+      extensions: {
+        garbage: 0,
+        clean: 0,
+        parking: 0,
+        elevator: 0,
+        laundry: 0
+      }
     };
   },
   beforeCreate() {
     this.form = this.$form.createForm(this);
   },
   methods: {
-    open() {
-      this.visible = true;
-    },
-    close() {
-      this.visible = false;
-    },
-    onChecked(checkedValues) {
-      console.log('checked = ', checkedValues)
-    },
-    isActive(value) {
-      return this.values.includes(value);
+    open() { this.visible = true },
+    close() { this.visible = false },
+    isActive(value) { return this.values.includes(value) },
+    handleAdd() {
+      this.onData(this.extensions);
+      this.close();
     }
-    // handleAddMore (e) {
-    //   e.preventDefault();
-    //   this.form.validateFields((err, values) => {
-    //     if (!err) {
-    //       this.onData(values)
-    //       this.close();
-    //       this.form.setFieldsValue({ title: '', data: '' });
-    //     }
-    //   });
-    // }
   }
 };
 </script>
 <style lang="scss" scoped>
-.header-close {
-  color: #fd3d76;
-  font-size: 24px;
-  cursor: pointer;
-}
 .add-more {
-    &--item {
-      margin: 15px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  &--group {
+    width: 100%;
+  }
 
-      &_title {
-          display: inline-block;
-          padding-bottom: 5px;
-          font-weight: 600;
-          font-size: 20px;
-      }
+  &--title {
+    font-size: 18px;
+    color: #fd3d76;
+    font-weight: 600;
+  }
 
-      &__left {
-        margin-right: 40px;
-      }
-    }
+  &--item {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    &-button {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 20px;
-      padding: 10px 0;
-      font-size: 20px;
-      font-weight: 600;
-
-      &--cancel {
-        cursor: pointer;
-      }
-      &--add {
-        color: #fd3d76;
-        border: none;
-        outline: 0;
+    &_title {
+        display: inline-block;
+        padding-bottom: 5px;
         font-weight: 600;
-        cursor: pointer;
-      }
+        font-size: 20px;
     }
+
+    &__left {
+      margin-right: 40px;
+    }
+  }
+
+  &-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+
+    &--cancel {
+      cursor: pointer;
+    }
+    &--add {
+      color: #fd3d76;
+      border: none;
+      outline: 0;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
 }
 </style>
 

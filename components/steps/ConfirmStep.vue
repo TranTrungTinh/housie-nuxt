@@ -45,7 +45,7 @@
         </div>
         <div class="step-confirm--item">
             <div class="step-confirm--item__title flex">
-                <span>Chi phí</span>
+                <span>Chi phí chính</span>
                 <a class="edit" @click="rollback(3)"><i class="fas fa-pencil"></i></a>
             </div>
             <div class="step-confirm--item__group">
@@ -64,6 +64,34 @@
                 <div class="step-confirm--item__content flex final">
                     <span>Wifi/Internet</span>
                     <span class="fill">{{ post.cost.wifi | currency }} đ/tháng</span>
+                </div>
+            </div>
+        </div>
+        <div class="step-confirm--item">
+            <div class="step-confirm--item__title flex">
+                <span>Chi phí khác</span>
+                <a class="edit" @click="rollback(3)"><i class="fas fa-pencil"></i></a>
+            </div>
+            <div class="step-confirm--item__group">
+                <div class="step-confirm--item__content flex first">
+                    <span>Tiền dọn rác</span>
+                    <span class="fill">{{ post.cost.extensions.garbage | currency }} đ/tháng</span>
+                </div>
+                <div class="step-confirm--item__content flex middle">
+                    <span>Tiền dọn vệ sinh</span>
+                    <span class="fill">{{ post.cost.extensions.clean | currency }} đ/tháng</span>
+                </div>
+                <div class="step-confirm--item__content flex middle">
+                    <span>Tiền gửi xe</span>
+                    <span class="fill">{{ post.cost.extensions.parking | currency }} đ/tháng</span>
+                </div>
+                <div class="step-confirm--item__content flex middle">
+                    <span>Tiền giặt ủi</span>
+                    <span class="fill">{{ post.cost.extensions.laundry | currency }} đ/tháng</span>
+                </div>
+                <div class="step-confirm--item__content flex final">
+                    <span>Chi phí thang máy</span>
+                    <span class="fill">{{ post.cost.extensions.elevator | currency }} đ/tháng</span>
                 </div>
             </div>
         </div>

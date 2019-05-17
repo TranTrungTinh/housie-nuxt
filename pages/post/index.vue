@@ -11,6 +11,7 @@ export default {
             title: 'Đăng phòng cho thuê - Housie'
         }
     },
+    layout: 'post',
     middleware: ["auth"],
     components: { FirstStep, SecondStep, ThirdStep, FourthStep, ConfirmStep },
     mixins: [initLoadProgress],
@@ -118,7 +119,12 @@ export default {
                 extensions: {
                     electricity: cost.electric,
                     water: cost.water,
-                    wifi: cost.wifi
+                    wifi: cost.wifi,
+                    garbage: cost.extensions.garbage,
+                    clean: cost.extensions.clean,
+                    parking: cost.extensions.parking,
+                    laundry: cost.extensions.laundry,
+                    elevator: cost.extensions.elevator
                 },
                 attactment: []
             }

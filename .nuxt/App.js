@@ -12,11 +12,12 @@ import '../node_modules/swiper/dist/css/swiper.css'
 import '../node_modules/vue-simple-suggest/dist/styles.css'
 
 import _6f6c098b from '../layouts/default.vue'
+import _2d283996 from '../layouts/post.vue'
 
-const layouts = { "_default": _6f6c098b }
+const layouts = { "_default": _6f6c098b,"_post": _2d283996 }
 
 export default {
-  head: {"title":"Tìm phòng thật dễ với Housie","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"application-name","content":"Housie"},{"name":"robots","content":"index,follow"},{"name":"googlebot","content":"index,follow"},{"name":"google","content":"nositelinkssearchbox"},{"name":"google","content":"notranslate"},{"hid":"description","name":"description","content":"Tìm, thuê phòng thật dễ với Housie"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"\u002Fcss\u002Fall.min.css"}],"style":[],"script":[]},
+  head: {"title":"Tìm phòng thật dễ với Housie","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"application-name","content":"Housie"},{"name":"robots","content":"index,follow"},{"name":"googlebot","content":"index,follow"},{"name":"google","content":"nositelinkssearchbox"},{"name":"google","content":"notranslate"},{"hid":"description","name":"description","content":"Tìm, thuê phòng thật dễ với Housie"},{"itemprop":"name","content":"Tìm phòng thật dễ với Housie"},{"itemprop":"description","content":"Tìm, thuê phòng thật dễ với Housie"},{"itemprop":"image","content":"The Name or Title Here"},{"name":"twitter:card","content":"product"},{"name":"twitter:site","content":"@publisher_handle"},{"name":"twitter:title","content":"Tìm phòng thật dễ với Housie"},{"name":"twitter:description","content":"Tìm, thuê phòng thật dễ với Housie"},{"name":"twitter:creator","content":"@author_handle"},{"name":"twitter:image","content":""},{"property":"og:title","content":"Tìm phòng thật dễ với Housie"},{"property":"og:type","content":"article"},{"property":"og:url","content":""},{"property":"og:image","content":""},{"property":"og:description","content":"Tìm, thuê phòng thật dễ với Housie"},{"property":"og:site_name","content":""},{"property":"og:price:amount","content":"1000000"},{"property":"og:price:currency","content":"VNĐ"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","type":"text\u002Fcss","href":"\u002Fcss\u002Fall.min.css"}],"style":[],"script":[]},
 
   render(h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })

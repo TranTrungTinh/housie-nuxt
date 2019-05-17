@@ -83,21 +83,58 @@
         </div>
         <div class="third-step--item">
             <a-alert
-                message="Chi phí khác"
+                message="Chi phí chính"
                 description="Tiền điện, tiền nước, tiền internet/wifi có thể nhập hoặc không."
                 type="info"
                 showIcon
             />
         </div>
-        <!-- <div class="third-step--item">
+        <a-divider></a-divider>
+        <div class="third-step--item">
             <span class="third-step--info__title">Chi phí khác</span>
-            <div class="third-step--info__addon" v-if="showAddOn.length > 0">
-                <div class="third-step--info__addon-item" v-for="item in showAddOn" :key="item.id">
+            <div class="third-step--info__addon" v-if="showExtensions.garbage">
+                <div class="third-step--info__addon-item">
                     <div>
-                        <span>{{ item.title }}:</span>
-                        <span>{{ item.data | currency }} đ/tháng</span>
+                        <span>Tiền rác:</span>
+                        <span>{{ showExtensions.garbage | currency }} đ/tháng</span>
                     </div>
-                    <div class="third-step--info__addon-item-delete" @click="onRemove(item.id)">Xoá</div>
+                    <div class="third-step--info__addon-item-delete" @click="onRemove('garbage')">Xoá</div>
+                </div>
+            </div>
+            <div class="third-step--info__addon" v-if="showExtensions.clean">
+                <div class="third-step--info__addon-item">
+                    <div>
+                        <span>Tiền dọn vệ sinh:</span>
+                        <span>{{ showExtensions.clean | currency }} đ/tháng</span>
+                    </div>
+                    <div class="third-step--info__addon-item-delete" @click="onRemove('clean')">Xoá</div>
+                </div>
+            </div>
+            <div class="third-step--info__addon" v-if="showExtensions.parking">
+                <div class="third-step--info__addon-item">
+                    <div>
+                        <span>Tiền gửi xe:</span>
+                        <span>{{ showExtensions.parking | currency }} đ/tháng</span>
+                    </div>
+                    <div class="third-step--info__addon-item-delete" @click="onRemove('parking')">Xoá</div>
+                </div>
+            </div>
+            <div class="third-step--info__addon" v-if="showExtensions.laundry">
+                <div class="third-step--info__addon-item">
+                    <div>
+                        <span>Tiền giặt ủi:</span>
+                        <span>{{ showExtensions.laundry | currency }} đ/tháng</span>
+                    </div>
+                    <div class="third-step--info__addon-item-delete" @click="onRemove('laundry')">Xoá</div>
+                </div>
+            </div>
+            <div class="third-step--info__addon" v-if="showExtensions.elevator">
+                <div class="third-step--info__addon-item">
+                    <div>
+                        <span>Chi phí thang máy:</span>
+                        <span>{{ showExtensions.elevator | currency }} đ/tháng</span>
+                    </div>
+                    <div class="third-step--info__addon-item-delete" @click="onRemove('elevator')">Xoá</div>
                 </div>
             </div>
             <div class="third-step--item__addition" @click="showModal">
@@ -105,7 +142,7 @@
               <span>Thêm chi phí khác</span>
               <ModalAddMore ref="modal" :onData="onAddData"/>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 <script>
@@ -124,7 +161,7 @@ export default {
                 electric: 0,
                 water: 0,
                 wifi: 0,
-                addOn: []
+                extensions: {}
             },
             isMain: false,
             isElectric: false,
@@ -136,19 +173,19 @@ export default {
         ...mapGetters({
             postThirdStep: 'post/postThirdStep'
         }),
-        showAddOn() {
-            return this.cost.addOn;
+        showExtensions() {
+            return this.cost.extensions;
         }
     },
     methods: {
         showModal() {
             this.$refs.modal.open();
         },
-        onAddData(data) {
-            this.cost.addOn = [...this.cost.addOn, {...data, id: `${Math.random()}`}];
+        onAddData(extensions) {
+            Object.assign(this.cost, { extensions });
         },
-        onRemove(id) {
-            this.cost.addOn = this.cost.addOn.filter(item => item.id !== id);
+        onRemove(attribute) {
+            Object.assign(this.cost.extensions, { [attribute]: 0 })
         },
 
         validateMainPrice() {
@@ -183,7 +220,7 @@ export default {
             return main && electric && water && wifi;
         }
     },
-    mounted() {
+    created() {
         Object.assign(this.cost, this.postThirdStep);
     },
     destroyed() {

@@ -19,7 +19,31 @@ module.exports = {
       { name: 'google', content: 'nositelinkssearchbox'},
       // Tells Google not to provide a translation for this document
       { name: 'google', content: 'notranslate'},
-      { hid: 'description', name: 'description', content: 'Tìm, thuê phòng thật dễ với Housie' }
+      { hid: 'description', name: 'description', content: 'Tìm, thuê phòng thật dễ với Housie' },
+
+      // Meta markup for Google+
+      { itemprop:"name" , content:"Tìm phòng thật dễ với Housie"  },
+      { itemprop:"description" , content:"Tìm, thuê phòng thật dễ với Housie"  },
+      { itemprop:"image" , content:"The Name or Title Here"  },
+
+      // Meta markup for Twitter
+      { name: 'twitter:card', content: 'product' },
+      { name: 'twitter:site', content: '@publisher_handle' },
+      { name: 'twitter:title', content: 'Tìm phòng thật dễ với Housie' },
+      { name: 'twitter:description', content: 'Tìm, thuê phòng thật dễ với Housie' },
+      { name: 'twitter:creator', content: '@author_handle' },
+      { name: 'twitter:image', content: '' },
+
+      // Meta markup for Facebook
+      { property: 'og:title', content: 'Tìm phòng thật dễ với Housie' },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:url', content: '' },
+      { property: 'og:image', content: '' },
+      { property: 'og:description', content: 'Tìm, thuê phòng thật dễ với Housie' },
+      { property: 'og:site_name', content: '' },
+      { property: 'og:price:amount', content: '1000000' },
+      { property: 'og:price:currency', content: 'VNĐ' }
+
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

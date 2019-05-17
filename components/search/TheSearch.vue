@@ -80,7 +80,7 @@ export default {
       if(!index) return mainString;
       const pre = mainString.substring(0, index);
       if(pre.length < 30) return `${pre}${postString}`;
-      const subPre = pre.substring(Math.floor(3 * pre.length / 4));
+      const subPre = pre.substring(Math.floor(0.8 * pre.length));
       return `...${subPre}${postString}`;
     },
     boldenSuggestion(scope) {
@@ -144,5 +144,14 @@ export default {
   // white-space: pre-wrap;
   // word-wrap: break-word;
   // text-overflow: ellipsis; 
+}
+.vue-simple-suggest.designed .suggestions .suggest-item.hover {
+  background-color: #e6f7ff !important;
+  color: #000 !important;
+}
+
+.vue-simple-suggest.designed .suggestions .suggest-item.selected {
+  background-color: rgb(193, 222, 233);
+  color: #000;
 }
 </style>

@@ -213,6 +213,14 @@ export default {
             this.pagination.current = page;
             this.loadPosts();
         },
+        // onDecreaseBeds() {
+        //     if(this.filtered.beds < 1) return;
+        //     this.filtered.beds--
+        // },
+        // onDecreaseBaths() {
+        //     if(this.filtered.baths < 1) return;
+        //     this.filtered.baths--
+        // },
 
         districtsNameClear() {
             const queryOptions = { ...this.$route.query };

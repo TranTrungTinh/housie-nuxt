@@ -59,7 +59,7 @@
                                 <a-row class="mg-small" type="flex" justify="space-between">
                                     <span>Số giường</span>
                                     <div type="flex" justify="space-between">
-                                        <i class="fas fa-minus-circle"></i>
+                                        <i class="fas fa-minus-circle" @click="filtered.beds--" v-show="filtered.beds > 0" />
                                         <span>{{ filtered.beds }}</span>
                                         <i class="fas fa-plus-circle" @click="filtered.beds++" />
                                     </div>
@@ -67,7 +67,7 @@
                                 <a-row class="mg-small" type="flex" justify="space-between">
                                     <span>Số phòng tắm</span>
                                     <div type="flex" justify="space-between">
-                                        <i class="fas fa-minus-circle"></i>
+                                        <i class="fas fa-minus-circle" @click="filtered.baths--" v-show="filtered.baths > 0" />
                                         <span>{{ filtered.baths }}</span>
                                         <i class="fas fa-plus-circle" @click="filtered.baths++" />
                                     </div>

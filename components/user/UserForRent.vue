@@ -4,31 +4,24 @@
     <a-divider></a-divider>
     <div class="user-request-wrap">
       <div class="user-request--status" v-for="(post, i) in posts" :key="i">
-        <div class="user-request--status__right">
-          <i class="fal fa-ellipsis-h-alt"></i>
-          <div class="user-request--status__right--popup">
-            <span @click="handleHide(post.id)">Ẩn tin</span>
-            <div class="small"></div>
-            <span @click="handleDelete(post.id)">Xoá tin</span>
-          </div>
-        </div>
-        <div @click="handleDetail(post.id)" style="cursor: pointer">
-          <a-row :gutter="20" class="user-request--task">
-            <a-col :lg="8">
-              <img v-lazy="renderImg(post.attactment[0])" />
-            </a-col>
-            <a-col :lg="16" class="user-request--task-content">
-              <div class="user-request--task-content--price">{{ post.price | thousand | currency }} đ/tháng</div>
-              <div class="user-request--task-content--desc">
-                {{post.title}}
-              </div>
-              <div class="user-request--task-content--address">
-                {{post.description}}
-              </div>
-            </a-col>
-          </a-row>
-          <a-divider></a-divider>
-        </div>
+        <PostActive 
+          v-if="post.status === 'active'"
+          :id="post.id"
+          :attactment="renderImg(post.attactment[0])"
+          :title="post.title"
+          :description="post.description"
+          :created="formatDay(post.created)"
+          :onHide="onHandleHide"
+        />
+        <PostDeActive 
+          v-if="post.status === 'deactive'"
+          :id="post.id"
+          :attactment="renderImg(post.attactment[0])"
+          :title="post.title"
+          :description="post.description"
+          :created="formatDay(post.created)"
+          :onShow="onHandleShow"
+        />
       </div>
     </div>
     <div class="user-request_loading" v-if="posts.length === 0">
@@ -38,13 +31,17 @@
   </div>
 </template>
 <script>
+import moment from 'moment';
 import { mapActions } from 'vuex';
 import { format } from '@/helpers';
+const PostActive = () => import('./UserPostActive');
+const PostDeActive = () => import('./UserPostDeActive');
 
 export default {
   props: {
     idUser: { type: Number, required: true, default: () => 1  }
   },
+  components: { PostActive, PostDeActive },
   data() {
     return {
       posts: [],
@@ -54,41 +51,35 @@ export default {
   methods: {
     ...mapActions({
       getPostsByOwner: 'post/getPostsByOwner',
-      deletePostById: 'post/deletePostById'
+      deletePostById: 'post/deletePostById',
+      updatePostByOwner: 'post/updatePostByOwner'
     }),
+    loadPosts() {
+      this.loading = true;
+      this.getPostsByOwner(this.idUser).then(result => {
+        this.posts = result.data;
+        this.loading = false;
+      })
+    },
     renderImg(image) {
       return format.formatImg(image);
     },
-    handleDetail(id) {
-      this.$router.push({ path: `/posts/${id}` })
+    formatDay(day) {
+      return moment(day).format('DD/MM/YYYY');
     },
-    handleDelete(id) {
-      this.$message.info('Chưa hổ trợ xoá tin đăng.')
-      // this.deletePostById(id)
-      // .then(() => {
-      //   this.posts = this.posts.filter(post => post.id !== id)
-      // })
-      // .catch(() => this.$message.error('Không thể xoá tin !!! Thử lại sau.'))
+    onHandleHide(id) {
+      this.updatePostByOwner({ id, status: 'deactive' })
+      .then(() => this.loadPosts())
+      .catch(() => this.$message.error('Không thể ẩn tin ngay lúc này.'))
     },
-    handleHide(id) {
-      this.$confirm({
-        title: 'Bạn có chắc ẩn tin ?',
-        content: 'Tin của bạn sẽ được ẩn ngay lập tức.',
-        onOk() {
-          console.log('OK');
-        },
-        onCancel() {
-          console.log('Cancel');
-        }
-      });
+    onHandleShow(id) {
+      this.updatePostByOwner({ id, status: 'active' })
+      .then(() => this.loadPosts())
+      .catch(() => this.$message.error('Không thể ẩn tin ngay lúc này.'))
     }
   },
   created() {
-    this.loading = true;
-    this.getPostsByOwner(this.idUser).then(result => {
-      this.posts = result.data;
-      this.loading = false;
-    })
+    this.loadPosts()
   },
   head() {
     return {
@@ -114,56 +105,6 @@ export default {
     // overflow-y: scroll;
   }
 
-  &--status {
-    
-    &__right {
-      position: relative;
-      float: right;
-      z-index: 10;
-      cursor: pointer;
-
-      &:hover &--popup {
-        display: block;
-      }
-
-      & > i {
-        cursor: pointer;
-        font-size: 24px;
-        color: #8A8A8F;
-      }
-
-      &--popup {
-        display: none;
-        position: absolute;
-        right: 0px;
-
-        background: #fff;
-        color: #FD3D76;
-        border-radius: 8px;
-        width: 100px;
-        text-align: center;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.32);
-        cursor: pointer;
-
-        & > span {
-          display: block;
-          padding: 7px 0;
-
-          &:first-child {
-            border-radius: 8px 8px 0 0;
-          }
-          &:last-child {
-            border-radius: 0 0 8px 8px;
-          }
-          &:hover {
-            background: #FD3D76;
-            color: #fff;
-          }
-        }
-      }
-    } 
-  }
-
   &_loading {
     text-align: center;
     line-height: 50px;
@@ -180,49 +121,6 @@ export default {
     }
   }
 
-  &--task {
-
-    & img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-
-    &-content {
-      padding-left: 20px !important;
-      line-height: 30px;
-
-      &--price {
-        font-size: 20px;
-        margin-top: 10px;
-        font-weight: 700;
-        color: #FD3D76;
-      }
-
-      &--desc {
-        font-size: 18px;
-        padding: 5px 0;
-        font-weight: bold;
-      }
-
-      &--address {
-        color: #8A8A8F;
-      }
-
-      &--btn-inprogess {
-        background-color: #FDEAF0 !important;
-        color: #FD3D76 !important;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-        border-color: #FD3D76 !important;
-
-        &:hover {
-          border-color: #FD3D76 !important;
-        }
-        
-      }
-
-    }
-  }
 }
 .small {
   height: 2px;

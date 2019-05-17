@@ -90,7 +90,7 @@
                                     <span>Tiền điện</span>
                                 </div>
                                 <div class="detail-body--info_item_price">
-                                    {{postDetail.extensions.electricity ? postDetail.extensions.electricity : 0 | thousand | currency}} đ/th
+                                    {{postDetail.extensions.electricity ? postDetail.extensions.electricity : 0 | currency}} đ/th
                                 </div>
                             </div>
                             <div class="detail-body--info_item">
@@ -99,7 +99,7 @@
                                     <span>Tiền nước</span>
                                 </div>
                                 <div class="detail-body--info_item_price">
-                                    {{postDetail.extensions.water ? postDetail.extensions.water : 0 | thousand | currency}} đ/kwh
+                                    {{postDetail.extensions.water ? postDetail.extensions.water : 0 | currency}} đ/kwh
                                 </div>
                             </div>
                             <div class="detail-body--info_item">
@@ -108,22 +108,41 @@
                                     <span>Internet/Wifi</span>
                                 </div>
                                 <div class="detail-body--info_item_price">
-                                    {{postDetail.extensions.water ? postDetail.extensions.water : 0 | thousand | currency}} đ/th
+                                    {{postDetail.extensions.water ? postDetail.extensions.water : 0 | currency}} đ/th
                                 </div>
                             </div>
                             <a-divider></a-divider>
-                            <!-- <div class="detail-body--info_item">
-                                    <div class="detail-body--info_item_sub">
-                                        <span>Chi phí khác</span>
-                                    </div>
-                                    <div class="detail-body--info_item_price">{{55000 | currency}} đ</div>
+                            <div class="detail-body--info_item" v-show="postDetail.extensions.garbage">
+                                <div class="detail-body--info_item_sub">
+                                    <span>Tiền dọn rác</span>
                                 </div>
-                                <div class="detail-body--info_item">
-                                    <div class="detail-body--info_item_sub">
-                                        <span>Chi phí khác</span>
-                                    </div>
-                                    <div class="detail-body--info_item_price">{{38000 | currency}} đ</div>
-                                </div> -->
+                                <div class="detail-body--info_item_price">{{postDetail.extensions.garbage | currency}} đ/tháng</div>
+                            </div>
+                            <div class="detail-body--info_item" v-show="postDetail.extensions.clean">
+                                <div class="detail-body--info_item_sub">
+                                    <span>Tiền dọn vệ sinh</span>
+                                </div>
+                                <div class="detail-body--info_item_price">{{postDetail.extensions.clean | currency}} đ/tháng</div>
+                            </div>
+                            <div class="detail-body--info_item" v-show="postDetail.extensions.parking">
+                                <div class="detail-body--info_item_sub">
+                                    <span>Tiền gửi xe</span>
+                                </div>
+                                <div class="detail-body--info_item_price">{{postDetail.extensions.parking | currency}} đ/tháng</div>
+                            </div>
+                            <div class="detail-body--info_item" v-show="postDetail.extensions.laundry">
+                                <div class="detail-body--info_item_sub">
+                                    <span>Tiền giặt ủi</span>
+                                </div>
+                                <div class="detail-body--info_item_price">{{postDetail.extensions.laundry | currency}} đ/tháng</div>
+                            </div>
+                            <div class="detail-body--info_item" v-show="postDetail.extensions.elevator">
+                                <div class="detail-body--info_item_sub">
+                                    <span>Chi phí thang máy</span>
+                                </div>
+                                <div class="detail-body--info_item_price">{{postDetail.extensions.elevator | currency}} đ/tháng</div>
+                            </div>
+                            <a-divider></a-divider>
                             <div class="detail-body--info_button" v-if="!isOwnersRoom">
                                 <div class="detail-body--info_button_help" @click="handleHelper"
                                     v-if="isUser && !isTaskExisted">

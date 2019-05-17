@@ -41,7 +41,13 @@ const initialState = () => {
       electric: 0,
       water: 0,
       wifi: 0,
-      addOn: []
+      extensions: {
+        garbage: 0,
+        clean: 0,
+        parking: 0,
+        elevator: 0,
+        laundry: 0
+      }
     },
     roomType: {
       code: '',
@@ -146,14 +152,25 @@ const actions = {
   },
 
   async getPostsByOwner(_, id) {
-    // const token = cookie.get('auth');
-    // if(!token) throw new Error('TOKEN_EXPIRED');
+    const token = localStorage.getItem('auth');
+    if(!token) throw new Error('TOKEN_EXPIRED');
     
     try {
-      const res = await postApi.getPostsByOwner(id);
+      const res = await postApi.getPostsByOwner({ id, token });
       return res.data;
     } catch (error) {
       throw new Error('CAN_NOT_GET_POSTS');       
+    }
+  },
+
+  async updatePostByOwner(_, payload) {
+    const token = localStorage.getItem('auth');
+    if(!token) throw new Error('TOKEN_EXPIRED');
+    
+    try {
+      await postApi.updatePostByOwner(token, payload);
+    } catch (error) {
+      throw new Error('CAN_NOT_UPDATE_POST');       
     }
   },
 
